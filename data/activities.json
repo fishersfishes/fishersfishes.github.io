@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Talk series: Evolution in finite populations",
+    "short_description": "A series of talks on evolutionary dynamics.",
+    "description": "We will be conducting a series of talks in the coming weeks, centred around the theme “Evolution in Finite Populations” (and we plan to hold more such thematic series in the future)",
+    "image": "activities/images/pop.png",
+    "link": "activities/EvoFinitePop.html"
+  },
+  {
+    "title": "Journal Talk Series",
+    "short_description": "A series of talks and informal paper presentations.",
+    "description": "We will be conducting a series of talks and informal paper presentations, where you can present some concepts, your works, or any articles that you found interesting.",
+    "link": "activities/JournalTalks.html",
+    "image": "activities/images/talk.png"
+  }
+]
+

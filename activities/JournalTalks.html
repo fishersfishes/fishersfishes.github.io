@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal Talk Series</title>
+    <style>
+        :root {
+            --primary: #ffffff;
+            --christine: #ec670a;
+            --rustic-red: #481204;
+            --sun: #f9a10c;
+            --milano-red: #c92207;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--rustic-red);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            font-weight: normal;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+        }
+        
+        .talks-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 0 1rem;
+        }
+        
+        .talk-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: white;
+        }
+        
+        .talk-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .talk-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--christine);
+        }
+        
+        .talk-content {
+            padding: 1.5rem;
+        }
+        
+        .talk-title {
+            margin-top: 0;
+            color: var(--rustic-red);
+            font-size: 1.3rem;
+        }
+        
+        .talk-speaker {
+            color: var(--milano-red);
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+        
+        .talk-date {
+            display: inline-block;
+            background-color: var(--sun);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .upcoming-date {
+            display: inline-block;
+            background-color: var(--christine);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .talk-short-desc {
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .talk-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--christine);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .talk-link:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            background-color: var(--rustic-red);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .section-title {
+            color: var(--rustic-red);
+            margin: 2rem 1rem 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--christine);
+        }
+        
+        @media (max-width: 768px) {
+            .talks-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        .back-home-wrapper {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .back-home-link {
+            display: inline-block;
+            color: white;
+            background-color: var(--christine);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-home-link:hover {
+            background-color: white;
+            color: var(--christine);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Journal Talk Series</h1>
+            <p class="subtitle">A series of talks and informal paper presentations</p>
+        </div>
+        <div class="back-home-wrapper">
+            <a href="/" class="back-home-link">← Back to Home</a>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="intro">
+            <p>We will be conducting a series of talks and informal paper presentations, where you can present some concepts, your works, or any articles that you found interesting.</p>
+        </div>
+        
+        <h2 class="section-title">Upcoming Talks</h2>
+        <div class="talks-container">
+            <div class="talk-card">
+                <div class="talk-content">
+                    <h3 class="talk-title">Talk: Preventing Evolutionary Rescue in Cancer</h3>
+                    <p class="talk-speaker">Srishti Patil</p>
+                    <span class="upcoming-date">10th July</span>
+                    <p class="talk-short-desc">Exploring strategies to prevent cancer cells from evolving resistance to treatment.</p>
+                    <p>This talk will discuss approaches to prevent evolutionary rescue in cancer cells, focusing on how understanding evolutionary dynamics can inform more effective treatment strategies that prevent resistance from emerging.</p>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="section-title">Completed Talks</h2>
+        <div class="talks-container">
+            <div class="talk-card">
+                <div class="talk-content">
+                    <h3 class="talk-title">Talk: Is it really wise to choose mates wisely?</h3>
+                    <p class="talk-speaker">R Akilan (4th Year BSMS Student at IISER Pune)</p>
+                    <span class="talk-date">Completed</span>
+                    <p class="talk-short-desc">Exploring evolutionary consequences of interspecific mating.</p>
+                    <p>We developed a mathematical model to explore the ecological and evolutionary consequences of interspecific matings. Our findings lead us to question whether evolution of increased discrimination is really beneficial or more complicated.</p>
+                </div>
+            </div>
+            
+            <div class="talk-card">
+                <div class="talk-content">
+                    <h3 class="talk-title">Talk by Vibishan B</h3>
+                    <p class="talk-speaker">Vibishan B</p>
+                    <span class="talk-date">Completed</span>
+                    <p>Details to be announced.</p>
+                </div>
+            </div>
+            
+            <div class="talk-card">
+                <div class="talk-content">
+                    <h3 class="talk-title">Talk: Grid Cell Modules</h3>
+                    <p class="talk-speaker">Srirang Nabar</p>
+                    <span class="talk-date">Completed</span>
+                    <p class="talk-short-desc">On the emergence of discrete modules in grid cells.</p>
+                    <p>This talk explores grid cells in the medial entorhinal cortex, their spatial firing properties, and theoretical models explaining discrete module formation without fixed-scale interactions.</p>
+                </div>
+            </div>
+            
+            <div class="talk-card">
+                <div class="talk-content">
+                    <h3 class="talk-title">Talk by Akash</h3>
+                    <p class="talk-speaker">Akash</p>
+                    <span class="talk-date">Completed</span>
+                    <p>Details to be announced.</p>
+                </div>
+            </div>
+            
+            <div class="talk-card">
+                <div class="talk-content">
+                    <h3 class="talk-title">Talk by Somyajyoti Pal</h3>
+                    <p class="talk-speaker">Somyajyoti Pal</p>
+                    <span class="talk-date">Completed</span>
+                    <p>Details to be announced.</p>
+                </div>
+            </div>
+            
+            <div class="talk-card">
+                <div class="talk-content">
+                    <h3 class="talk-title">Talk: Dyneins are weird(ly interesting)</h3>
+                    <p class="talk-speaker">Aniket Kumar (3rd year BSMS student at IISER Pune)</p>
+                    <span class="talk-date">Completed</span>
+                    <p class="talk-short-desc">The mechanics behind dynein and kinesin motor protein transport.</p>
+                    <p>Explores the collaborative force generation of dyneins and the intriguing balance of transport events despite kinesin's numerical disadvantage, using a theoretical model incorporating force-induced deformation.</p>
+                </div>
+            </div>
+            
+            <div class="talk-card">
+                <div class="talk-content">
+                    <h3 class="talk-title">Talk by Vinayak Patel</h3>
+                    <p class="talk-speaker">Vinayak Patel</p>
+                    <span class="talk-date">Completed</span>
+                    <p>Details to be announced.</p>
+                </div>
+            </div>
+            
+            <div class="talk-card">
+                <div class="talk-content">
+                    <h3 class="talk-title">Talk: Stable marriage problem and microbial communities</h3>
+                    <p class="talk-speaker">Arjun Mandyam Dhati (3rd year BSMS student at IISER Pune)</p>
+                    <span class="talk-date">Completed</span>
+                    <p class="talk-short-desc">Exploring microbial community dynamics through the lens of the stable marriage problem.</p>
+                    <p>Presented the paper titled 'Multiple stable states in microbial communities explained by the stable marriage problem'.</p>
+                    <a href="https://academic.oup.com/ismej/article/12/12/2823/7475323?login=false" class="talk-link">Read paper</a>
+                </div>
+            </div>
+            
+            <div class="talk-card">
+                <div class="talk-content">
+                    <h3 class="talk-title">Talk by Kaustubh Kulkarni</h3>
+                    <p class="talk-speaker">Kaustubh Kulkarni (4th year BSMS student at IISER Pune)</p>
+                    <span class="talk-date">Completed</span>
+                    <p>Details to be announced.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Fisher's Fishes | Theoretical Biology Journal Club</p>
+        </div>
+    </footer>
+</body>
+</html>
