@@ -533,3 +533,56 @@ html {
     font-size: 1.1rem;
   }
 }
+
+/* ===== ARTICLE CARDS ===== */
+#articles-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.article-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0.3rem 1rem 0.8rem;
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.article-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.article-meta-item i {
+  color: #ec670a;
+}
+
+/* Make sure the article cards look good at different screen sizes */
+@media (max-width: 1200px) {
+  #articles-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  #articles-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  #articles-container {
+    grid-template-columns: 1fr;
+  }
+}
