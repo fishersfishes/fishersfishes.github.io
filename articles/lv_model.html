@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lotka-Volterra Model - Fisher's Fishes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="icon" type="image/png" href="../../Logo.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+  
+  <style>
+    /* ===== BASE STYLES ===== */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #481204;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      margin: 0;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    a {
+      text-decoration: none;
+      color: #ec670a;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #c92207;
+    }
+
+    /* ===== HEADER ===== */
+    .article-header {
+      position: relative;
+      height: 30vh;
+      min-height: 200px;
+      max-height: 300px;
+      padding: 2rem 1rem;
+      text-align: center;
+      background: linear-gradient(135deg, #481204 0%, #5a1505 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 2;
+      animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      color: #ffffff;
+      text-decoration: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-link img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid #f9a10c;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-link:hover img {
+      transform: rotate(360deg) scale(1.05);
+    }
+
+    .logo-link h1 {
+      font-size: 1.8rem;
+      margin: 0;
+    }
+
+    .article-nav {
+      display: flex;
+      justify-content: center;
+    }
+
+    .back-home {
+      padding: 0.7rem 1.5rem;
+      font-weight: 600;
+      color: #ffffff;
+      background: rgba(201, 34, 7, 0.3);
+      border: 2px solid #f9a10c;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .back-home:hover {
+      transform: translateY(-2px);
+      background: rgba(201, 34, 7, 0.5);
+      box-shadow: 0 5px 15px rgba(249, 161, 12, 0.3);
+      color: #ffffff;
+    }
+
+    /* ===== BOIDS CONTAINER ===== */
+    #boids-container {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .boid {
+      position: absolute;
+      width: 12px;
+      height: 20px;
+      background: #f9a10c;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      transform-origin: center center;
+      pointer-events: none;
+      filter: drop-shadow(0 0 1px rgba(0,0,0,0.15));
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .article-main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .article-main.loaded {
+      opacity: 1;
+    }
+
+    .simulation-container {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+    }
+
+    .simulation-title {
+      color: #481204;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      border-bottom: 3px solid #f9a10c;
+      padding-bottom: 0.5rem;
+    }
+
+    .description {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #333;
+      margin-bottom: 2rem;
+      text-align: justify;
+    }
+
+    .controls-section {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border-left: 4px solid #f9a10c;
+    }
+
+    .controls-title {
+      color: #481204;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .parameter-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .parameter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .parameter-group label {
+      font-weight: 600;
+      color: #481204;
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .parameter-group label span {
+      font-weight: normal;
+      color: #666;
+    }
+
+    /* Custom slider styles */
+    .slider-container {
+      position: relative;
+      height: 30px;
+      display: flex;
+      align-items: center;
+    }
+
+    .slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #f9a10c, #ec670a);
+      outline: none;
+      margin: 10px 0;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #481204;
+      cursor: pointer;
+      border: 2px solid #f9a10c;
+      transition: all 0.2s ease;
+    }
+
+    .slider::-webkit-slider-thumb:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+
+    .slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #481204;
+      cursor: pointer;
+      border: 2px solid #f9a10c;
+    }
+
+    .chart-container {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+      min-height: 500px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #chartContainer {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .equations-section {
+      background: linear-gradient(135deg, #fff4ee 0%, #fdf5f0 100%);
+      border-left: 4px solid #f9a10c;
+      border-radius: 0 8px 8px 0;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .equations-title {
+      color: #481204;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .equation {
+      background: #ffffff;
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 1.1rem;
+      text-align: center;
+      border: 1px solid #e0e0e0;
+      color: #481204;
+    }
+
+    .parameters-explanation {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: #5a1505;
+    }
+
+    .parameters-explanation ul {
+      margin: 0.5rem 0;
+      padding-left: 2rem;
+    }
+
+    .parameters-explanation li {
+      margin: 0.3rem 0;
+    }
+
+    /* Chart loading state */
+    .chart-loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      color: #666;
+      height: 100%;
+      min-height: 400px;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #ec670a;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      padding: 2rem 1rem;
+      text-align: center;
+      background: #481204;
+      color: #ffffff;
+      margin-top: 4rem;
+    }
+
+    /* ===== RESPONSIVE DESIGN ===== */
+    @media (max-width: 768px) {
+      .article-header {
+        height: 25vh;
+        min-height: 180px;
+      }
+      
+      .parameter-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .simulation-title {
+        font-size: 1.6rem;
+      }
+
+      .boid {
+        width: 10px;
+        height: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-content {
+        padding: 1rem 0.5rem;
+      }
+      
+      .simulation-container {
+        padding: 1rem;
+      }
+      
+      .controls-section {
+        padding: 1rem;
+      }
+
+      .boid {
+        width: 8px;
+        height: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="boids-container"></div>
+  
+  <!-- Header -->
+  <header class="article-header">
+    <div class="header-content">
+      <a href="../../index.html" class="logo-link">
+        <img src="../../Logo.png" alt="Fisher's Fishes Logo" />
+        <h1>Fisher's Fishes</h1>
+      </a>
+      
+      <nav class="article-nav">
+        <a href="../../index.html" class="back-home">
+          <i class="fas fa-home"></i> Back to Home
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="article-main loaded">
+    <!-- Simulation Container -->
+    <div class="simulation-container">
+      <h1 class="simulation-title">Lotka-Volterra Predator-Prey Model</h1>
+      
+      <div class="description">
+        <p>The Lotka-Volterra model describes the dynamics of biological systems in which two species interact, 
+        one as a predator and the other as prey. This interactive simulation allows you to explore how different 
+        parameters affect the population dynamics over time.</p>
+      </div>
+
+      <!-- Controls Section -->
+      <div class="controls-section">
+        <h3 class="controls-title">
+          <i class="fas fa-sliders-h"></i>
+          Model Parameters
+        </h3>
+        
+        <div class="parameter-grid">
+          <div class="parameter-group">
+            <label for="alpha">Prey Growth Rate (α) <span id="alpha-value">1.0</span></label>
+            <div class="slider-container">
+              <input type="range" min="0.1" max="2" step="0.01" value="1.0" class="slider" id="alpha">
+            </div>
+          </div>
+          <div class="parameter-group">
+            <label for="beta">Predation Rate (β) <span id="beta-value">0.1</span></label>
+            <div class="slider-container">
+              <input type="range" min="0.01" max="0.5" step="0.001" value="0.1" class="slider" id="beta">
+            </div>
+          </div>
+          <div class="parameter-group">
+            <label for="gamma">Predator Efficiency (γ) <span id="gamma-value">0.075</span></label>
+            <div class="slider-container">
+              <input type="range" min="0.01" max="0.2" step="0.001" value="0.075" class="slider" id="gamma">
+            </div>
+          </div>
+          <div class="parameter-group">
+            <label for="delta">Predator Death Rate (δ) <span id="delta-value">1.5</span></label>
+            <div class="slider-container">
+              <input type="range" min="0.1" max="3" step="0.1" value="1.5" class="slider" id="delta">
+            </div>
+          </div>
+          <div class="parameter-group">
+            <label for="prey0">Initial Prey Population <span id="prey0-value">10</span></label>
+            <div class="slider-container">
+              <input type="range" min="1" max="50" step="1" value="10" class="slider" id="prey0">
+            </div>
+          </div>
+          <div class="parameter-group">
+            <label for="pred0">Initial Predator Population <span id="pred0-value">5</span></label>
+            <div class="slider-container">
+              <input type="range" min="1" max="25" step="1" value="5" class="slider" id="pred0">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart Container -->
+      <div class="chart-container" id="chartContainer">
+        <div class="chart-loading" id="chartLoading">
+          <div class="loading-spinner"></div>
+          <p>Loading simulation...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Equations Section -->
+    <div class="equations-section">
+      <h2 class="equations-title">Mathematical Model</h2>
+      
+      <p>The Lotka-Volterra equations are a pair of first-order nonlinear differential equations:</p>
+      
+      <div class="equation">
+        dx/dt = αx - βxy
+      </div>
+      
+      <div class="equation">
+        dy/dt = γxy - δy
+      </div>
+      
+      <div class="parameters-explanation">
+        <p><strong>Where:</strong></p>
+        <ul>
+          <li><strong>x</strong> = prey population</li>
+          <li><strong>y</strong> = predator population</li>
+          <li><strong>α</strong> = prey growth rate</li>
+          <li><strong>β</strong> = predation rate</li>
+          <li><strong>γ</strong> = predator efficiency (conversion of prey to predators)</li>
+          <li><strong>δ</strong> = predator death rate</li>
+        </ul>
+        
+        <p>These equations create oscillatory dynamics where predator and prey populations cycle in a characteristic pattern.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Fisher's Fishes | Theoretical Biology Journal Club</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.26.0/plotly.min.js"></script>
+  <script src="../../js/boids.js"></script>
+  
+  <script>
+    // Simulation parameters and state
+    let currentPlot = null;
+    let debounceTimer = null;
+    
+    // Numerical integration using 4th-order Runge-Kutta method
+    function rungeKutta4(x, y, alpha, beta, gamma, delta, dt) {
+      const dx_dt = (x, y) => alpha * x - beta * x * y;
+      const dy_dt = (x, y) => gamma * x * y - delta * y;
+      
+      const k1x = dt * dx_dt(x, y);
+      const k1y = dt * dy_dt(x, y);
+      
+      const k2x = dt * dx_dt(x + k1x/2, y + k1y/2);
+      const k2y = dt * dy_dt(x + k1x/2, y + k1y/2);
+      
+      const k3x = dt * dx_dt(x + k2x/2, y + k2y/2);
+      const k3y = dt * dy_dt(x + k2x/2, y + k2y/2);
+      
+      const k4x = dt * dx_dt(x + k3x, y + k3y);
+      const k4y = dt * dy_dt(x + k3x, y + k3y);
+      
+      return {
+        x: x + (k1x + 2*k2x + 2*k3x + k4x) / 6,
+        y: y + (k1y + 2*k2y + 2*k3y + k4y) / 6
+      };
+    }
+    
+    // Run the simulation
+    function runSimulation() {
+      // Get parameters from sliders
+      const alpha = parseFloat(document.getElementById('alpha').value);
+      const beta = parseFloat(document.getElementById('beta').value);
+      const gamma = parseFloat(document.getElementById('gamma').value);
+      const delta = parseFloat(document.getElementById('delta').value);
+      const prey0 = parseFloat(document.getElementById('prey0').value);
+      const pred0 = parseFloat(document.getElementById('pred0').value);
+      
+      // Update displayed values
+      document.getElementById('alpha-value').textContent = alpha.toFixed(2);
+      document.getElementById('beta-value').textContent = beta.toFixed(3);
+      document.getElementById('gamma-value').textContent = gamma.toFixed(3);
+      document.getElementById('delta-value').textContent = delta.toFixed(1);
+      document.getElementById('prey0-value').textContent = prey0;
+      document.getElementById('pred0-value').textContent = pred0;
+      
+      // Simulation settings
+      const dt = 0.01; // time step
+      const tMax = 20; // simulation time
+      const steps = Math.floor(tMax / dt);
+      
+      // Arrays to store results
+      const time = [];
+      const preyData = [];
+      const predData = [];
+      
+      // Initial conditions
+      let x = prey0; // prey
+      let y = pred0; // predator
+      
+      // Run simulation
+      for (let i = 0; i <= steps; i++) {
+        time.push(i * dt);
+        preyData.push(x);
+        predData.push(y);
+        
+        // Update populations using Runge-Kutta
+        const result = rungeKutta4(x, y, alpha, beta, gamma, delta, dt);
+        x = result.x;
+        y = result.y;
+        
+        // Prevent negative populations
+        x = Math.max(0, x);
+        y = Math.max(0, y);
+      }
+      
+      // Create or update the plot
+      updatePlot(time, preyData, predData);
+    }
+    
+    // Create or update the plot
+    function updatePlot(time, preyData, predData) {
+      // Hide loading spinner
+      const loadingElement = document.getElementById('chartLoading');
+      if (loadingElement) {
+        loadingElement.style.display = 'none';
+      }
+      
+      const trace1 = {
+        x: time,
+        y: preyData,
+        mode: 'lines',
+        name: 'Prey Population',
+        line: {
+          color: '#2E8B57',
+          width: 3
+        }
+      };
+      
+      const trace2 = {
+        x: time,
+        y: predData,
+        mode: 'lines',
+        name: 'Predator Population',
+        line: {
+          color: '#DC143C',
+          width: 3
+        }
+      };
+      
+      const layout = {
+        title: {
+          text: 'Lotka-Volterra Predator-Prey Dynamics',
+          font: {
+            size: 18,
+            color: '#481204'
+          }
+        },
+        xaxis: {
+          title: 'Time',
+          gridcolor: '#f0f0f0',
+          linecolor: '#ccc'
+        },
+        yaxis: {
+          title: 'Population',
+          gridcolor: '#f0f0f0',
+          linecolor: '#ccc'
+        },
+        plot_bgcolor: '#ffffff',
+        paper_bgcolor: '#ffffff',
+        font: {
+          family: 'Inter, sans-serif',
+          color: '#333'
+        },
+        legend: {
+          x: 0.02,
+          y: 0.98,
+          bgcolor: 'rgba(255,255,255,0.8)',
+          bordercolor: '#ccc',
+          borderwidth: 1
+        },
+        hovermode: 'x unified',
+        margin: {
+          l: 50,
+          r: 30,
+          t: 60,
+          b: 50
+        },
+        autosize: true
+      };
+      
+      const config = {
+        displayModeBar: true,
+        displaylogo: false,
+        modeBarButtonsToRemove: ['select2d', 'lasso2d', 'autoScale2d'],
+        responsive: true
+      };
+      
+      if (currentPlot) {
+        Plotly.react('chartContainer', [trace1, trace2], layout, config);
+      } else {
+        Plotly.newPlot('chartContainer', [trace1, trace2], layout, config)
+          .then(() => {
+            currentPlot = true;
+            // Ensure proper sizing
+            window.addEventListener('resize', () => {
+              Plotly.Plots.resize('chartContainer');
+            });
+          });
+      }
+    }
+    
+    // Debounce function to limit how often the simulation runs
+    function debounceSimulation() {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(runSimulation, 100);
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.slider').forEach(slider => {
+        slider.addEventListener('input', debounceSimulation);
+      });
+      
+      setTimeout(() => {
+        runSimulation();
+      }, 500);
+      
+      document.querySelector('.article-main').classList.add('loaded');
+    });
+  </script>
+</body>
+</html>

@@ -90,8 +90,12 @@ Similarly, you can embed Google Maps or other iframe-based widgets.
 
 ---
 
-## Final Thoughts
+## Including Javascript
 
-This example demonstrates a range of formatting options and capabilities you can use when writing your articles. While we support images, tables, formatting, and even HTML for layout, keep in mind that advanced JavaScript features may not always work as expected inside Markdown (yet).
+This article shows a range of formatting options and capabilities you can use when writing your articles. While we support images, tables, formatting, and even HTML for layout, keep in mind that advanced JavaScript features may not always work as expected inside Markdown (yet). However, if you would still like to have some javascript components in your article, you can directly write html code. You can take the [Lotka-Volterra Model](/articles/lv_model.html) simulation page as a reference.
 
-Focus on clarity, simplicity, and creativity when presenting your ideas. Happy writing!
+---
+
+With the presentation freedom provided by the setup almost anything is possible. Try to make things fun, not just functional.
+
+Happy Writing.
