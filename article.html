@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Article - Fisher's Fishes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+  <link rel="icon" type="image/png" href="Logo.png" />
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="article.css" />
+</head>
+<body>
+  <div class="particles-container" id="particles"></div>
+  
+  <!-- Header -->
+  <header class="article-header">
+    <div id="boids-container"></div>
+    <div class="header-content">
+      <a href="index.html" class="logo-link">
+        <img src="Logo.png" alt="Fisher's Fishes Logo" />
+        <h1>Fisher's Fishes</h1>
+      </a>
+      
+      <nav class="article-nav">
+        <a href="index.html" class="back-home">
+          <i class="fas fa-home"></i> Back to Home
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <p>Loading article...</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main id="article-main" class="article-main">
+    <!-- Article Header Info -->
+    <div class="article-info">
+      <div class="article-breadcrumb">
+        <a href="index.html">Home</a> <span>/</span> <span id="article-title-breadcrumb">Article</span>
+      </div>
+      
+      <div class="article-meta-header">
+        <h1 id="article-title">Loading...</h1>
+        <div class="article-meta-info">
+          <div class="meta-item" id="article-author" style="display: none;">
+            <i class="fas fa-user"></i>
+            <span></span>
+          </div>
+          <div class="meta-item" id="article-date" style="display: none;">
+            <i class="fas fa-calendar-alt"></i>
+            <span></span>
+          </div>
+          <div class="meta-item" id="reading-time">
+            <i class="fas fa-clock"></i>
+            <span id="reading-time-text">Calculating...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Article Content -->
+    <article id="article-content" class="article-content">
+      <!-- Markdown content will be rendered here -->
+    </article>
+
+    <!-- Article Navigation -->
+    <div class="article-navigation">
+      <a href="index.html#articles" class="nav-button">
+        <i class="fas fa-arrow-left"></i>
+        Back to Articles
+      </a>
+      <button id="scroll-to-top" class="nav-button scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+        Top
+      </button>
+    </div>
+  </main>
+
+  <!-- Error Message -->
+  <div id="error-message" class="error-message" style="display: none;">
+    <div class="error-content">
+      <i class="fas fa-exclamation-triangle"></i>
+      <h2>Article Not Found</h2>
+      <p>The requested article could not be loaded. Please check the URL or try again later.</p>
+      <a href="index.html" class="error-back-button">Return to Home</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Fisher's Fishes | Theoretical Biology Journal Club</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.2/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/r.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/matlab.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+  <script src="js/boids.js"></script>
+  <script src="js/article-loader.js"></script>
+</body>
+</html>

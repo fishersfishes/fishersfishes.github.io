@@ -82,9 +82,9 @@ function createArticleCards(articles, containerId) {
     
     const metaLine = `<div class="article-meta">${authorLine}${dateLine}</div>`;
 
-    // Create a link to the article file
+    // Create a link to the article viewer with the file parameter
     const articleLink = article.file
-      ? `<a href="articles/${article.file}">Read Article</a>`
+      ? `<a href="article.html?file=${article.file}">Read Article</a>`
       : '';
 
     card.innerHTML = `

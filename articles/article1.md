@@ -1,6 +1,6 @@
 # How to Write Articles in Markdown
 
-Welcome to the guide on writing Markdown articles for the Fisher’s Fishes website! This short tutorial will teach you enough to write informative articles in our articles section.
+Welcome to the guide on writing Markdown articles for the Fisher's Fishes website! This short tutorial will teach you enough to write informative articles in our articles section.
 
 ---
 
@@ -34,7 +34,7 @@ A quick cheat-sheet for markdown formatting is given below:
 | Element | Markdown Syntax |
 |---------|----------------|
 | Table | ```\| Syntax \| Description \|```<br>```\| ----------- \| ----------- \|```<br>```\| Header \| Title \|```<br>```\| Paragraph \| Text \|``` |
-| Fenced Code Block | ``````` ```{   "firstName": "John",   "lastName": "Smith",   "age": 25 } ``` ``````|
+| Fenced Code Block | ```` ```js\nconst x = 5;\n``` ```` |
 | Footnote | `Here's a sentence with a footnote. [^1]`<br>`[^1]: This is the footnote.` |
 | Heading ID | `### My Great Heading {#custom-id}` |
 | Definition List | `term : definition` |
@@ -80,12 +80,18 @@ You can write html tags along with markdown syntax to extend the functionality. 
 
 ---
 
-### iFrames
+## Embedding Media
 
-Website embeddings can be copied from other websites that can displayed on your article. One use case for this will be for attaching youtube videos. Instead of just attaching the link, you can copy the embed after clicking the share button from youtube. You can directly paste it here, and it will look somewhat like this:
+Website embeddings can be copied from other websites that allow them. For example, you can embed a YouTube video using the share > embed option, like this:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/fXW-QjBsruE?si=2TS_muHgrGTrQqa3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-Similarly, you can do with other websites, like google maps:
+Similarly, you can embed Google Maps or other iframe-based widgets.
 
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3745.0936016853852!2d85.68355561095348!3d20.171827881193533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a19aea7a433ea4b%3A0x455d13f7d6284a15!2sNational%20Institute%20of%20Science%20Education%20and%20Research!5e0!3m2!1sen!2sin!4v1747838759724!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+---
+
+## Final Thoughts
+
+This example demonstrates a range of formatting options and capabilities you can use when writing your articles. While we support images, tables, formatting, and even HTML for layout, keep in mind that advanced JavaScript features may not always work as expected inside Markdown (yet).
+
+Focus on clarity, simplicity, and creativity when presenting your ideas. Happy writing!
