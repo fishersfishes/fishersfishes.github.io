@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shikhara Talk – Evolution in Finite Populations</title>
+  <style>
+    :root {
+      --primary: #ffffff;
+      --christine: #ec670a;
+      --rustic-red: #481204;
+      --sun: #f9a10c;
+      --milano-red: #c92207;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--primary);
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--rustic-red), #5c1a0a);
+      color: white;
+      padding: 2.5rem 0 2rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin: 0;
+      animation: fadeInDown 1s ease;
+    }
+
+    .video-section {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 1.5rem;
+      margin: 2rem 0;
+      justify-content: center;
+    }
+
+    .video-wrapper {
+      flex: 2 1 560px;
+      min-width: 100%;
+      max-width: 100%;
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .download-link {
+      display: inline-block;
+      background-color: var(--christine);
+      color: white;
+      padding: 0.7rem 1.4rem;
+      border-radius: 25px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .download-link:hover {
+      background-color: #d45d09;
+      transform: translateY(-2px);
+    }
+
+    .pdf-wrapper {
+      text-align: center;
+      flex: 1 1 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+    .section-title {
+      color: var(--rustic-red);
+      font-size: 1.8rem;
+      margin: 2.5rem 0 1.5rem;
+      border-bottom: 3px solid var(--christine);
+      padding-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .content {
+      font-size: 1.05rem;
+      text-align: justify;
+    }
+
+    footer {
+      background-color: var(--rustic-red);
+      color: white;
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 4rem;
+    }
+
+    .back-home-wrapper {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .back-home-link {
+      display: inline-block;
+      color: white;
+      background-color: var(--christine);
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .back-home-link:hover {
+      background-color: white;
+      color: var(--christine);
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .video-section {
+        flex-wrap: nowrap;
+      }
+      .video-wrapper {
+        min-width: 65%;
+        padding-bottom: 36%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Modelling Quantitative Traits in Finite Populations</h1>
+    <div class="back-home-wrapper">
+      <a href="/" class="back-home-link">← Back to Talks</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="video-section">
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/Pt_YeEN_b64?si=wNV-GrANVQV9gxW7" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="pdf-wrapper">
+        <a class="download-link" href="shikhara-abstract.pdf">📄 Download Abstract (PDF)</a>
+      </div>
+    </section>
+
+    <h2 class="section-title">Abstract</h2>
+    <div class="content">
+      <p>Phenotypic traits such as human height are often under the influence of a very large number of genes. Due to the complex genetic and epigenetic factors affecting the expression of such phenotypic traits, they take on so many values that they can be said to vary approximately 'continuously' over some subset of the real line.</p>
+
+      <p>Since infinitely many distinct trait values may arise in populations bearing such 'quantitative' traits, modelling the evolutionary dynamics of quantitative trait distributions in finite populations is mathematically challenging. I will show how tools from stochastic field theory and infinite-dimensional stochastic analysis can be used to derive some equations for the distribution of a quantitative trait in a finite population of non-constant size from demographic first principles.</p>
+
+      <p>The resulting equations extend classic results from quantitative genetics, such as the Crow-Kimura equation, the replicator equation, Price equation, Fisher's fundamental theorem and Lande's gradient equation, to the stochastic, dynamic setting relevant to finite populations.</p>
+
+      <p>On the mathematics side, I will introduce new mathematical techniques for modelling stochastic quantitative trait evolution based on calculus of variations and stochastic partial differential equations (SPDEs). These techniques complement the existing standard approach in the literature, thus expanding the theoretical toolbox available for modelling quantitative traits in finite populations. As an application, I will sketch how the SPDE approach allows us to use Fourier techniques to study adaptive diversification in finite populations.</p>
+
+      <p>On the biological side, our framework reveals how stochasticity in finite populations can predictably bias evolutionary trajectories to favour certain traits, a phenomenon we call "noise-induced biasing". We show that noise-induced biasing acts through two distinct mechanisms, the "direct" and "indirect" mechanisms. While the direct mechanism can be identified with classic bet-hedging theory, the indirect mechanism is a more subtle consequence of frequency- and density-dependent demographic stochasticity. Our equations reveal that noise-induced biasing may lead to evolution proceeding in a direction opposite to that predicted by selection-mutation-drift balance alone in finite populations.</p>
+    </div>
+
+    <h2 class="section-title">References</h2>
+    <div class="content">
+      <p>Bhat, A. S., & Guttal, V. (2025). <i>Eco-evolutionary dynamics for finite populations and the noise-induced reversal of selection</i>. The American Naturalist, 205(1), 1-19. doi: 10.1086/733196</p>
+      <p>Bhat, A. S. (2025). <i>A stochastic field theory for the evolution of quantitative traits in finite populations</i>. Theoretical Population Biology 161, pp. 1–12. doi: 10.1016/j.tpb.2024.10.003.</p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Fisher's Fishes | Theoretical Biology Journal Club</p>
+    </div>
+  </footer>
+</body>
+</html>
