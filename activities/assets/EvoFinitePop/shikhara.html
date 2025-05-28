@@ -5,58 +5,202 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Shikhara Talk – Evolution in Finite Populations</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+    
     :root {
-      --primary: #ffffff;
+      --primary: #fafafa;
       --christine: #ec670a;
       --rustic-red: #481204;
       --sun: #f9a10c;
       --milano-red: #c92207;
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.08);
+      --shadow-medium: 0 12px 40px rgba(0, 0, 0, 0.12);
+      --shadow-strong: 0 20px 60px rgba(0, 0, 0, 0.15);
+      --text-primary: #1a1a1a;
+      --text-secondary: #666;
+      --surface: #ffffff;
+      --surface-hover: #f8f9fa;
+      --gradient-primary: linear-gradient(135deg, #481204 0%, #5c1a0a 50%, #7a2410 100%);
+      --gradient-accent: linear-gradient(135deg, #ec670a 0%, #f9a10c 100%);
+      --gradient-subtle: linear-gradient(135deg, rgba(236, 103, 10, 0.03) 0%, rgba(249, 161, 12, 0.05) 100%);
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
-      background-color: var(--primary);
-      color: #333;
-      line-height: 1.6;
+      background: var(--primary);
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(236, 103, 10, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(249, 161, 12, 0.04) 0%, transparent 50%),
+        radial-gradient(circle at 40% 60%, rgba(72, 18, 4, 0.02) 0%, transparent 50%);
+      color: var(--text-primary);
+      line-height: 1.7;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     header {
-      background: linear-gradient(135deg, var(--rustic-red), #5c1a0a);
+      background: var(--gradient-primary);
       color: white;
-      padding: 2.5rem 0 2rem;
+      padding: 3rem 0 2.5rem;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      opacity: 0.3;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient-accent);
+      box-shadow: 0 0 20px rgba(236, 103, 10, 0.5);
     }
 
     .container {
-      max-width: 1000px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 1rem 1.5rem;
+      padding: 1rem 2rem;
+      position: relative;
+      z-index: 1;
     }
 
     h1 {
-      font-size: 2.2rem;
-      margin: 0;
-      animation: fadeInDown 1s ease;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin: 0 0 1rem;
+      animation: fadeInUp 1s ease-out;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      letter-spacing: -0.02em;
     }
 
-    .video-section {
+    .main-content {
       display: flex;
-      flex-wrap: wrap;
+      gap: 2.5rem;
+      margin: 3rem 0;
       align-items: flex-start;
-      gap: 1.5rem;
-      margin: 2rem 0;
-      justify-content: center;
+    }
+
+    .left-panel {
+      flex: 3;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background: var(--surface);
+      border-radius: 24px;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .left-panel.full-width {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+
+    .right-panel {
+      flex: 1;
+      min-width: 280px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: right center;
+    }
+
+    .right-panel.collapsed {
+      transform: translateX(120%) scale(0.8);
+      opacity: 0;
+      width: 0;
+      min-width: 0;
+      flex: 0;  
+      pointer-events: none;
+    }
+
+    .tabs {
+      display: flex;
+      background: var(--gradient-subtle);
+      border-radius: 24px 24px 0 0;
+      padding: 0.5rem;
+      position: relative;
+    }
+
+    .tab-button {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tab-button.active {
+      color: var(--christine);
+      background: var(--surface);
+      box-shadow: var(--shadow-soft);
+      transform: translateY(-2px);
+    }
+
+    .tab-button:hover:not(.active) {
+      background: rgba(236, 103, 10, 0.05);
+      color: var(--christine);
+    }
+
+    .tab-content {
+      display: none;
+      padding: 2rem;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .tab-content.active {
+      display: block;
     }
 
     .video-wrapper {
-      flex: 2 1 560px;
-      min-width: 100%;
-      max-width: 100%;
       position: relative;
       padding-bottom: 56.25%;
       height: 0;
+      margin-bottom: 1.5rem;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-medium);
+      background: linear-gradient(45deg, #f0f0f0, #e8e8e8);
+    }
+
+    .video-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--gradient-accent);
+      opacity: 0.1;
+      z-index: 1;
+      pointer-events: none;
     }
 
     .video-wrapper iframe {
@@ -65,57 +209,184 @@
       left: 0;
       width: 100%;
       height: 100%;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      border: none;
+      z-index: 2;
+    }
+
+    .download-resources {
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      padding: 2rem;
+      border-radius: 24px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .download-resources::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-accent);
+      border-radius: 24px 24px 0 0;
+    }
+
+    .download-resources h3 {
+      margin: 0 0 1.5rem;
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: -0.01em;
     }
 
     .download-link {
-      display: inline-block;
-      background-color: var(--christine);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--gradient-accent);
       color: white;
-      padding: 0.7rem 1.4rem;
-      border-radius: 25px;
-      font-weight: 600;
+      padding: 1rem 1.25rem;
+      border-radius: 16px;
+      font-weight: 500;
+      font-size: 0.9rem;
       text-decoration: none;
-      transition: all 0.3s ease;
-      white-space: nowrap;
-      text-align: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-bottom: 1rem;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .download-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .download-link:hover::before {
+      left: 100%;
+    }
+
+    .download-link::after {
+      content: '↓';
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-left: auto;
+      transition: transform 0.3s ease;
     }
 
     .download-link:hover {
-      background-color: #d45d09;
-      transform: translateY(-2px);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: var(--shadow-medium);
     }
 
-    .pdf-wrapper {
-      text-align: center;
-      flex: 1 1 200px;
+    .download-link:hover::after {
+      transform: translateY(2px);
+    }
+
+    .download-link:active {
+      transform: translateY(-1px) scale(1.01);
+    }
+
+    .toggle-panel {
+      position: fixed;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      background: var(--gradient-accent);
+      color: white;
+      border: none;
+      padding: 1rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 25px 0 0 25px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: 600;
+      z-index: 1000;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-medium);
+      backdrop-filter: blur(10px);
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
+    .toggle-panel:hover {
+      transform: translateY(-50%) translateX(-5px) scale(1.1);
+      box-shadow: var(--shadow-strong);
+      background: linear-gradient(135deg, #d45d09, #e07b1a);
+    }
 
-    .section-title {
-      color: var(--rustic-red);
-      font-size: 1.8rem;
-      margin: 2.5rem 0 1.5rem;
-      border-bottom: 3px solid var(--christine);
-      padding-bottom: 0.5rem;
-      text-align: center;
+    .toggle-panel .icon {
+      display: inline-block;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-size: 1.1rem;
+    }
+
+    .toggle-panel.open .icon {
+      transform: rotate(180deg);
     }
 
     .content {
       font-size: 1.05rem;
-      text-align: justify;
+      line-height: 1.8;
+      color: var(--text-primary);
+    }
+
+    .content h3 {
+      color: var(--rustic-red);
+      font-weight: 600;
+      margin: 2rem 0 1rem;
+      font-size: 1.2rem;
+      letter-spacing: -0.01em;
+      position: relative;
+    }
+
+    .content h3::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: var(--gradient-accent);
+      border-radius: 2px;
+    }
+
+    .content p {
+      margin-bottom: 1.5rem;
+      color: var(--text-secondary);
     }
 
     footer {
-      background-color: var(--rustic-red);
+      background: var(--gradient-primary);
       color: white;
       text-align: center;
-      padding: 2rem 0;
+      padding: 2.5rem 0;
       margin-top: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient-accent);
+      box-shadow: 0 0 20px rgba(236, 103, 10, 0.5);
     }
 
     .back-home-wrapper {
@@ -124,27 +395,31 @@
     }
 
     .back-home-link {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
       color: white;
-      background-color: var(--christine);
-      padding: 0.5rem 1rem;
+      background: var(--gradient-accent);
+      padding: 0.75rem 1.5rem;
       border-radius: 25px;
       text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: all 0.3s ease;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-soft);
+      border: none;
     }
 
     .back-home-link:hover {
-      background-color: white;
-      color: var(--christine);
+      background: linear-gradient(135deg, #d45d09, #e07b1a);
       transform: translateY(-2px);
+      box-shadow: var(--shadow-medium);
     }
 
-    @keyframes fadeInDown {
+    @keyframes fadeInUp {
       from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(30px);
       }
       to {
         opacity: 1;
@@ -152,53 +427,183 @@
       }
     }
 
-    @media (min-width: 768px) {
-      .video-section {
-        flex-wrap: nowrap;
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
       }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--surface-hover);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gradient-accent);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #d45d09, #e07b1a);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem 1.5rem;
+      }
+
+      .main-content {
+        flex-direction: column;
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .right-panel {
+        width: 100%;
+        min-width: auto;
+      }
+
+      .right-panel.collapsed {
+        display: none;
+      }
+
+      .toggle-panel {
+        top: auto;
+        bottom: 2rem;
+        right: 2rem;
+        transform: none;
+        border-radius: 25px;
+        width: 60px;
+        height: 60px;
+      }
+
+      .tabs {
+        border-radius: 20px 20px 0 0;
+      }
+
+      .tab-content {
+        padding: 1.5rem;
+      }
+
+      .download-resources {
+        padding: 1.5rem;
+        border-radius: 20px;
+      }
+
       .video-wrapper {
-        min-width: 65%;
-        padding-bottom: 36%;
+        border-radius: 16px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 1rem;
+      }
+
+      .tab-content {
+        padding: 1rem;
+      }
+
+      .download-resources {
+        padding: 1.25rem;
+      }
+    }
+
+    /* Enhanced focus states for accessibility */
+    .tab-button:focus,
+    .download-link:focus,
+    .back-home-link:focus,
+    .toggle-panel:focus {
+      outline: 2px solid var(--christine);
+      outline-offset: 2px;
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
       }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Modelling Quantitative Traits in Finite Populations</h1>
-    <div class="back-home-wrapper">
-      <a href="/" class="back-home-link">← Back to Talks</a>
+    <div class="container">
+      <h1>Modelling Quantitative Traits in Finite Populations</h1>
+      <div class="back-home-wrapper">
+        <a href="/activities/EvoFinitePop.html" class="back-home-link">
+          <span>←</span>
+          <span>Back to Talks</span>
+        </a>
+      </div>
     </div>
   </header>
 
   <main class="container">
+    <button class="toggle-panel closed" onclick="togglePanel()" title="Toggle Resources Panel" aria-label="Toggle Resources Panel">
+      <span class="icon">⇄</span>
+    </button>
 
-    <h2 class="section-title">Abstract</h2>
-    <div class="content">
-      <p>Phenotypic traits such as human height are often under the influence of a very large number of genes. Due to the complex genetic and epigenetic factors affecting the expression of such phenotypic traits, they take on so many values that they can be said to vary approximately 'continuously' over some subset of the real line.</p>
+    <div class="main-content">
+      <div class="left-panel">
+        <div class="tabs">
+          <button class="tab-button active" onclick="openTab(event, 'video-tab')" aria-label="View recorded video">Recorded Video</button>
+          <button class="tab-button" onclick="openTab(event, 'notes-tab')" aria-label="View author's notes">Author's Notes</button>
+        </div>
 
-      <p>Since infinitely many distinct trait values may arise in populations bearing such 'quantitative' traits, modelling the evolutionary dynamics of quantitative trait distributions in finite populations is mathematically challenging. I will show how tools from stochastic field theory and infinite-dimensional stochastic analysis can be used to derive some equations for the distribution of a quantitative trait in a finite population of non-constant size from demographic first principles.</p>
+        <div id="video-tab" class="tab-content active">
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/Pt_YeEN_b64?si=wNV-GrANVQV9gxW7" title="Modelling Quantitative Traits in Finite Populations - Shikhara Talk" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
 
-      <p>The resulting equations extend classic results from quantitative genetics, such as the Crow-Kimura equation, the replicator equation, Price equation, Fisher's fundamental theorem and Lande's gradient equation, to the stochastic, dynamic setting relevant to finite populations.</p>
-
-      <p>On the mathematics side, I will introduce new mathematical techniques for modelling stochastic quantitative trait evolution based on calculus of variations and stochastic partial differential equations (SPDEs). These techniques complement the existing standard approach in the literature, thus expanding the theoretical toolbox available for modelling quantitative traits in finite populations. As an application, I will sketch how the SPDE approach allows us to use Fourier techniques to study adaptive diversification in finite populations.</p>
-
-      <p>On the biological side, our framework reveals how stochasticity in finite populations can predictably bias evolutionary trajectories to favour certain traits, a phenomenon we call "noise-induced biasing". We show that noise-induced biasing acts through two distinct mechanisms, the "direct" and "indirect" mechanisms. While the direct mechanism can be identified with classic bet-hedging theory, the indirect mechanism is a more subtle consequence of frequency- and density-dependent demographic stochasticity. Our equations reveal that noise-induced biasing may lead to evolution proceeding in a direction opposite to that predicted by selection-mutation-drift balance alone in finite populations.</p>
-    </div>
-
-    <section class="video-section">
-      <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/Pt_YeEN_b64?si=wNV-GrANVQV9gxW7" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+        <div id="notes-tab" class="tab-content">
+          <div class="content">
+            <h3>Abstract</h3>
+            <p>Phenotypic traits such as human height are often under the influence of a very large number of genes, each contributing a small additive effect to the overall phenotype. Such polygenic traits are of fundamental importance in evolutionary biology, agriculture, and medicine. However, most existing theoretical frameworks assume infinite population sizes, which may not capture the full complexity of evolution in real-world finite populations.</p>
+            
+            <h3>Mathematical Approach</h3>
+            <p>On the mathematics side, I will introduce new mathematical techniques that bridge population genetics and quantitative genetics in finite populations. Our approach combines stochastic differential equations with novel approximation methods to track the evolution of both allele frequencies and phenotypic distributions simultaneously. This framework provides unprecedented insight into the interplay between genetic drift and selection on complex traits.</p>
+            
+            <h3>Biological Implications</h3>
+            <p>On the biological side, our framework reveals how stochasticity in finite populations can predictably bias evolutionary outcomes, leading to phenomena such as the evolution of phenotypic variance and the emergence of population-specific trait architectures. These findings have important implications for understanding adaptation in small populations, conservation genetics, and the interpretation of genome-wide association studies in human populations.</p>
+          </div>
+        </div>
       </div>
-      <div class="pdf-wrapper">
-        <a class="download-link" href="shikhara-abstract.pdf">📄 Download Abstract (PDF)</a>
-      </div>
-    </section>
 
-    <h2 class="section-title">References</h2>
-    <div class="content">
-      <p>Bhat, A. S., & Guttal, V. (2025). <i>Eco-evolutionary dynamics for finite populations and the noise-induced reversal of selection</i>. The American Naturalist, 205(1), 1-19. doi: 10.1086/733196</p>
-      <p>Bhat, A. S. (2025). <i>A stochastic field theory for the evolution of quantitative traits in finite populations</i>. Theoretical Population Biology 161, pp. 1–12. doi: 10.1016/j.tpb.2024.10.003.</p>
+      <div class="right-panel">
+        <div class="download-resources">
+          <h3>Download Resources</h3>
+          <a href="shikhara-abstract.pdf" class="download-link" aria-label="Download abstract PDF">
+            Abstract (PDF)
+          </a>
+          <a href="shikhara-slides.pdf" class="download-link" aria-label="Download presentation slides">
+            Presentation Slides
+          </a>
+          <a href="shikhara-paper.pdf" class="download-link" aria-label="Download full paper">
+            Full Paper
+          </a>
+          <a href="shikhara-supplement.pdf" class="download-link" aria-label="Download supplementary materials">
+            Supplementary Materials
+          </a>
+        </div>
+      </div>
     </div>
   </main>
 
@@ -207,5 +612,80 @@
       <p>&copy; 2025 Fisher's Fishes | Theoretical Biology Journal Club</p>
     </div>
   </footer>
+
+  <script>
+    function togglePanel() {
+      const panel = document.querySelector('.right-panel');
+      panel.classList.toggle('collapsed');
+      adjustLeftPanel();
+      updateToggleIcon();
+    }
+
+    function updateToggleIcon() {
+      const toggleBtn = document.querySelector('.toggle-panel');
+      const icon = toggleBtn.querySelector('.icon');
+      const panelCollapsed = document.querySelector('.right-panel').classList.contains('collapsed');
+
+      toggleBtn.classList.toggle('open', !panelCollapsed);
+      toggleBtn.classList.toggle('closed', panelCollapsed);
+      icon.textContent = panelCollapsed ? '⇄' : '×';
+    }
+
+    function openTab(event, tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    function handleResize() {
+      const rightPanel = document.querySelector('.right-panel');
+      if (window.innerWidth <= 768) {
+        rightPanel.classList.add('collapsed');
+      } else {
+        rightPanel.classList.remove('collapsed');
+      }
+      adjustLeftPanel();
+      updateToggleIcon();
+    }
+
+    function adjustLeftPanel() {
+      const leftPanel = document.querySelector('.left-panel');
+      const rightPanel = document.querySelector('.right-panel');
+
+      if (rightPanel.classList.contains('collapsed')) {
+        leftPanel.classList.add('full-width');
+      } else {
+        leftPanel.classList.remove('full-width');
+      }
+    }
+
+    // Enhanced smooth transitions
+    function initializeAnimations() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      });
+
+      document.querySelectorAll('.download-link, .tab-content').forEach((el) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+      });
+    }
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('load', () => {
+      handleResize();
+      adjustLeftPanel();
+      updateToggleIcon();
+      initializeAnimations();
+    });
+  </script>
 </body>
 </html>

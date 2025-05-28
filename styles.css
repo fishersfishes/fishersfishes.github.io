@@ -183,11 +183,36 @@ h2 {
   filter: saturate(1.1);
 }
 
+/* Add this to your existing styles.css */
 .simple-card h3 {
   margin: 1rem 1rem 0.5rem;
   color: #481204;
   font-size: 1.25rem;
   font-weight: 700;
+  transition: color 0.4s ease, transform 0.4s ease;
+  display: inline-block; /* Needed for transform to work properly */
+}
+
+.simple-card:hover h3 {
+  color: #c92207;
+  transform: translateX(5px);
+  background: linear-gradient(135deg, #c92207 0%, #ec670a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textColorPulse 2s infinite;
+}
+
+@keyframes textColorPulse {
+  0% {
+    background-size: 100% 100%;
+  }
+  50% {
+    background-size: 150% 150%;
+  }
+  100% {
+    background-size: 100% 100%;
+  }
 }
 
 .simple-card p {

@@ -23,19 +23,23 @@ function createCards(items, containerId) {
     const card = document.createElement('div');
     card.className = 'simple-card';
     card.style.setProperty('--i', index);
-    const imageTag = item.image
-      ? `<img src="${item.image}" alt="${item.title}">`
-      : '';
+    const imageTag = item.image ? `<img src="${item.image}" alt="${item.title}">` : '';
 
-    const linkTag = item.link && item.link !== '#'
-      ? `<a href="${item.link}">View Details</a>`
-      : '';
+    // Make entire card clickable if there's a valid link
+    if (item.link && item.link !== '#') {
+      card.addEventListener('click', () => {
+        window.location.href = item.link;
+      });
+      card.style.cursor = 'pointer';
+    }
+
+    const titleTag = `<h3>${item.title}</h3>`;
+    const descriptionTag = `<p>${item.short_description || ''}</p>`;
 
     card.innerHTML = `
       ${imageTag}
-      <h3>${item.title}</h3>
-      <p>${item.short_description || ''}</p>
-      ${linkTag}
+      ${titleTag}
+      ${descriptionTag}
     `;
     container.appendChild(card);
   });
@@ -60,39 +64,36 @@ function createArticleCards(articles, containerId) {
     const card = document.createElement('div');
     card.className = 'simple-card article-card';
     card.style.setProperty('--i', index);
-    
-    const imageTag = article.image
-      ? `<img src="${article.image}" alt="${article.title}">`
-      : '';
-    
-    // Format the date nicely if it exists
+
+    const imageTag = article.image ? `<img src="${article.image}" alt="${article.title}">` : '';
+
     const dateObj = article.date ? new Date(article.date) : null;
-    const formattedDate = dateObj 
+    const formattedDate = dateObj
       ? dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
       : '';
-    
-    // Add icons for author and date
-    const authorLine = article.author 
-      ? `<div class="article-meta-item"><i class="fas fa-user"></i> ${article.author}</div>` 
+
+    const authorLine = article.author
+      ? `<div class="article-meta-item"><i class="fas fa-user"></i> ${article.author}</div>`
       : '';
-    
-    const dateLine = formattedDate 
-      ? `<div class="article-meta-item"><i class="fas fa-calendar-alt"></i> ${formattedDate}</div>` 
+
+    const dateLine = formattedDate
+      ? `<div class="article-meta-item"><i class="fas fa-calendar-alt"></i> ${formattedDate}</div>`
       : '';
-    
+
     const metaLine = `<div class="article-meta">${authorLine}${dateLine}</div>`;
 
-    // Create a link to the article viewer with the file parameter
-    const articleLink = article.file
-      ? `<a href="article.html?file=${article.file}">Read Article</a>`
-      : '';
+    if (article.file) {
+      card.addEventListener('click', () => {
+        window.location.href = `article.html?file=${article.file}`;
+      });
+      card.style.cursor = 'pointer';
+    }
 
     card.innerHTML = `
       ${imageTag}
       <h3>${article.title}</h3>
       ${metaLine}
       <p>${article.short_description || ''}</p>
-      ${articleLink}
     `;
     container.appendChild(card);
   });

@@ -136,24 +136,6 @@
             color: var(--rustic-red);
         }
         
-        .talk-links {
-            margin-top: auto;
-            padding-top: 1.5rem;
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .talk-link {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            text-align: center;
-            min-width: 180px;
-        }
-        
         .abstract-link {
             background-color: var(--christine);
             color: white;
@@ -282,50 +264,38 @@
         
         <h2 class="section-title">Talk Series</h2>
         <div class="talks-container">
-            <div class="talk-card">
+            <div class="talk-card" data-link="assets/EvoFinitePop/shikhara.html">
                 <div class="talk-content">
                     <div class="talk-text-content">
                         <h3 class="talk-title">Modelling Quantitative traits in finite populations from first principles</h3>
                         <p class="talk-speaker">Shikhara</p>
                         <span class="talk-date">20th May</span>
                         <span class="talk-time">2:30 PM IST</span>
-                        <p class="talk-short-desc">Fundamental approaches to understanding quantitative trait evolution</p>
                         <p>This talk will present novel approaches to modeling the evolution of quantitative traits in finite populations, starting from first principles of population genetics and evolutionary theory.</p>
-                    </div>
-                    <div class="talk-links">
-                        <a href="assets/EvoFinitePop/shikhara.html" class="talk-link abstract-link">Know More</a>
                     </div>
                 </div>
             </div>
             
-            <div class="talk-card">
+            <div class="talk-card" data-link="#">
                 <div class="talk-content">
                     <div class="talk-text-content">
                         <h3 class="talk-title">Deconstructing evolvability in fitness seascapes</h3>
                         <p class="talk-speaker">Swathi Manivannan</p>
                         <span class="talk-date">14th June</span>
                         <span class="talk-time">Time to be announced</span>
-                        <p class="talk-short-desc">Analyzing evolutionary potential in dynamic fitness landscapes</p>
                         <p>This presentation will explore the concept of evolvability within the framework of fitness seascapes, examining how populations navigate and adapt to changing selective pressures.</p>
-                    </div>
-                    <div class="talk-links">
-                        <a href="#" class="talk-link abstract-link disabled-link">Abstract Coming Soon</a>
                     </div>
                 </div>
             </div>
             
-            <div class="talk-card">
+            <div class="talk-card" data-link="#">
                 <div class="talk-content">
                     <div class="talk-text-content">
                         <h3 class="talk-title">Modelling the Evolution of Antibiotic Resistance using Fisher's Geometric Model</h3>
                         <p class="talk-speaker">Arhan Vora</p>
                         <span class="talk-date">29th June</span>
                         <span class="talk-time">Time to be announced</span>
-                        <p class="talk-short-desc">Theoretical approaches to antibiotic resistance evolution</p>
                         <p>This talk will apply Fisher's geometric model to understand and predict the evolution of antibiotic resistance, providing insights into this critical medical challenge.</p>
-                    </div>
-                    <div class="talk-links">
-                        <a href="#" class="talk-link abstract-link disabled-link">Abstract Coming Soon</a>
                     </div>
                 </div>
             </div>
@@ -337,5 +307,24 @@
             <p>&copy; 2025 Fisher's Fishes | Theoretical Biology Journal Club</p>
         </div>
     </footer>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.talk-card').forEach(card => {
+        const link = card.getAttribute('data-link');
+        if (link && link !== '#') {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', () => {
+            window.location.href = link;
+            });
+        } else {
+            card.style.opacity = 0.7;
+            card.title = "Abstract Coming Soon";
+        }
+        });
+    });
+    </script>
+
 </body>
 </html>
