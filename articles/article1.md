@@ -1,4 +1,6 @@
-# How to Write Articles in Markdown
+#Coming soon
+
+<!--# How to Write Articles in Markdown
 
 Welcome to the guide on writing Markdown articles for the Fisher's Fishes website! This short tutorial will teach you enough to write informative articles in our articles section.
 
@@ -99,3 +101,4 @@ This article shows a range of formatting options and capabilities you can use wh
 With the presentation freedom provided by the setup almost anything is possible. Try to make things fun, not just functional.
 
 Happy Writing.
+-->
