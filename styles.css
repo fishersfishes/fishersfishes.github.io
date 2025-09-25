@@ -286,6 +286,17 @@ h2 {
   animation-delay: calc(0.1s * var(--i));
 }
 
+/* No articles message styling */
+.no-articles-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 2rem 0;
+  color: #666;
+  font-style: italic;
+  font-size: 1.1rem;
+  width: 100%;
+}
+
 /* ===== COORDINATORS ===== */
 #coordinators {
   background: #fff4ee;

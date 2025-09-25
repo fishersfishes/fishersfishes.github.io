@@ -60,6 +60,12 @@ function createArticleCards(articles, containerId) {
   const container = document.getElementById(containerId);
   container.innerHTML = '';
 
+  // Display message when no articles are available
+  if (!articles || articles.length === 0) {
+    container.innerHTML = '<div class="no-articles-message">No articles available at the moment. Check back soon for new content!</div>';
+    return;
+  }
+
   articles.forEach((article, index) => {
     const card = document.createElement('div');
     card.className = 'simple-card article-card';
