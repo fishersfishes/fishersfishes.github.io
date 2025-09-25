@@ -1,5 +1,19 @@
 [
   {
+    "title": "Applications of Network Science",
+    "short_description": "A series of talks on network science.",
+    "description": "We will be conducting a series of talks in the coming weeks, centred around the theme “Network Science”",
+    "image": "activities/images/Network.png",
+    "link": "activities/Network.html"
+  },
+  {
+    "title": "Special Lectures",
+    "short_description": "Some interesting lectures on some interesting topics.",
+    "description": "This is a series of special lectures on various topics.",
+    "image": "activities/images/Filler.jpg",
+    "link": "activities/SpecialLectures.html"
+  },
+  {
     "title": "Talk series: Evolution in finite populations",
     "short_description": "A series of talks on evolutionary dynamics.",
     "description": "We will be conducting a series of talks in the coming weeks, centred around the theme “Evolution in Finite Populations” (and we plan to hold more such thematic series in the future)",

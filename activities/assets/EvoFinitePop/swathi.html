@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Swathi Talk – Deconstructing evolvability in fitness seascapes</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+    
+    :root {
+      --primary: #fafafa;
+      --christine: #ec670a;
+      --rustic-red: #481204;
+      --sun: #f9a10c;
+      --milano-red: #c92207;
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.08);
+      --shadow-medium: 0 12px 40px rgba(0, 0, 0, 0.12);
+      --shadow-strong: 0 20px 60px rgba(0, 0, 0, 0.15);
+      --text-primary: #1a1a1a;
+      --text-secondary: #666;
+      --surface: #ffffff;
+      --surface-hover: #f8f9fa;
+      --gradient-primary: linear-gradient(135deg, #481204 0%, #5c1a0a 50%, #7a2410 100%);
+      --gradient-accent: linear-gradient(135deg, #ec670a 0%, #f9a10c 100%);
+      --gradient-subtle: linear-gradient(135deg, rgba(236, 103, 10, 0.03) 0%, rgba(249, 161, 12, 0.05) 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--primary);
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(236, 103, 10, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(249, 161, 12, 0.04) 0%, transparent 50%),
+        radial-gradient(circle at 40% 60%, rgba(72, 18, 4, 0.02) 0%, transparent 50%);
+      color: var(--text-primary);
+      line-height: 1.7;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    header {
+      background: var(--gradient-primary);
+      color: white;
+      padding: 3rem 0 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      opacity: 0.3;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient-accent);
+      box-shadow: 0 0 20px rgba(236, 103, 10, 0.5);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin: 0 0 1rem;
+      animation: fadeInUp 1s ease-out;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      letter-spacing: -0.02em;
+    }
+
+    .main-content {
+      display: flex;
+      gap: 2.5rem;
+      margin: 3rem 0;
+      align-items: flex-start;
+    }
+
+    .left-panel {
+      flex: 3;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background: var(--surface);
+      border-radius: 24px;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .left-panel.full-width {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+
+    .right-panel {
+      flex: 1;
+      min-width: 280px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: right center;
+    }
+
+    .right-panel.collapsed {
+      transform: translateX(120%) scale(0.8);
+      opacity: 0;
+      width: 0;
+      min-width: 0;
+      flex: 0;  
+      pointer-events: none;
+    }
+
+    .tabs {
+      display: flex;
+      background: var(--gradient-subtle);
+      border-radius: 24px 24px 0 0;
+      padding: 0.5rem;
+      position: relative;
+    }
+
+    .tab-button {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tab-button.active {
+      color: var(--christine);
+      background: var(--surface);
+      box-shadow: var(--shadow-soft);
+      transform: translateY(-2px);
+    }
+
+    .tab-button:hover:not(.active) {
+      background: rgba(236, 103, 10, 0.05);
+      color: var(--christine);
+    }
+
+    .tab-content {
+      display: none;
+      padding: 2rem;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      margin-bottom: 1.5rem;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-medium);
+      background: linear-gradient(45deg, #f0f0f0, #e8e8e8);
+    }
+
+    .video-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--gradient-accent);
+      opacity: 0.1;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      z-index: 2;
+    }
+
+    .download-resources {
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      padding: 2rem;
+      border-radius: 24px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .download-resources::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-accent);
+      border-radius: 24px 24px 0 0;
+    }
+
+    .download-resources h3 {
+      margin: 0 0 1.5rem;
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .download-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--gradient-accent);
+      color: white;
+      padding: 1rem 1.25rem;
+      border-radius: 16px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-bottom: 1rem;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .download-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .download-link:hover::before {
+      left: 100%;
+    }
+
+    .download-link::after {
+      content: '↓';
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-left: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .download-link:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .download-link:hover::after {
+      transform: translateY(2px);
+    }
+
+    .download-link:active {
+      transform: translateY(-1px) scale(1.01);
+    }
+
+    .toggle-panel {
+      position: fixed;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      background: var(--gradient-accent);
+      color: white;
+      border: none;
+      padding: 1rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 25px 0 0 25px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: 600;
+      z-index: 1000;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-medium);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .toggle-panel:hover {
+      transform: translateY(-50%) translateX(-5px) scale(1.1);
+      box-shadow: var(--shadow-strong);
+      background: linear-gradient(135deg, #d45d09, #e07b1a);
+    }
+
+    .toggle-panel .icon {
+      display: inline-block;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-size: 1.1rem;
+    }
+
+    .toggle-panel.open .icon {
+      transform: rotate(180deg);
+    }
+
+    .content {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-primary);
+    }
+
+    .content h3 {
+      color: var(--rustic-red);
+      font-weight: 600;
+      margin: 2rem 0 1rem;
+      font-size: 1.2rem;
+      letter-spacing: -0.01em;
+      position: relative;
+    }
+
+    .content h3::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: var(--gradient-accent);
+      border-radius: 2px;
+    }
+
+    .content p {
+      margin-bottom: 1.5rem;
+      color: var(--text-secondary);
+    }
+
+    footer {
+      background: var(--gradient-primary);
+      color: white;
+      text-align: center;
+      padding: 2.5rem 0;
+      margin-top: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient-accent);
+      box-shadow: 0 0 20px rgba(236, 103, 10, 0.5);
+    }
+
+    .back-home-wrapper {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .back-home-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: white;
+      background: var(--gradient-accent);
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-soft);
+      border: none;
+    }
+
+    .back-home-link:hover {
+      background: linear-gradient(135deg, #d45d09, #e07b1a);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-medium);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--surface-hover);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gradient-accent);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #d45d09, #e07b1a);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem 1.5rem;
+      }
+
+      .main-content {
+        flex-direction: column;
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .right-panel {
+        width: 100%;
+        min-width: auto;
+      }
+
+      .right-panel.collapsed {
+        display: none;
+      }
+
+      .toggle-panel {
+        top: auto;
+        bottom: 2rem;
+        right: 2rem;
+        transform: none;
+        border-radius: 25px;
+        width: 60px;
+        height: 60px;
+      }
+
+      .tabs {
+        border-radius: 20px 20px 0 0;
+      }
+
+      .tab-content {
+        padding: 1.5rem;
+      }
+
+      .download-resources {
+        padding: 1.5rem;
+        border-radius: 20px;
+      }
+
+      .video-wrapper {
+        border-radius: 16px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 1rem;
+      }
+
+      .tab-content {
+        padding: 1rem;
+      }
+
+      .download-resources {
+        padding: 1.25rem;
+      }
+    }
+
+    /* Enhanced focus states for accessibility */
+    .tab-button:focus,
+    .download-link:focus,
+    .back-home-link:focus,
+    .toggle-panel:focus {
+      outline: 2px solid var(--christine);
+      outline-offset: 2px;
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Deconstructing evolvability in fitness seascapes</h1>
+      <div class="back-home-wrapper">
+        <a href="/activities/EvoFinitePop.html" class="back-home-link">
+          <span>←</span>
+          <span>Back to Talks</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <button class="toggle-panel closed" onclick="togglePanel()" title="Toggle Resources Panel" aria-label="Toggle Resources Panel">
+      <span class="icon">⇄</span>
+    </button>
+
+    <div class="main-content">
+      <div class="left-panel">
+        <div class="tabs">
+          <button class="tab-button active" onclick="openTab(event, 'video-tab')" aria-label="View lecture slides">Lecture Slides</button>
+          <button class="tab-button" onclick="openTab(event, 'notes-tab')" aria-label="View author's notes">Author's Notes</button>
+        </div>
+
+        <div id="video-tab" class="tab-content active">
+          <div class="video-wrapper">
+            <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQmkY2GKY-dvrr_Er_exihdg_TQLaGViUIzC_uYUqpNUwKTXZPtKYGdv0JvOSpmNw/pubembed?start=false&loop=true&delayms=3000" title="Deconstructing evolvability in fitness seascapes - Swathi Slides" frameborder="0" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div id="notes-tab" class="tab-content">
+
+        </div>
+      </div>
+
+      <div class="right-panel">
+        <div class="download-resources">
+          <h3>Download Resources</h3>
+
+            There are no resources available currently
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Fisher's Fishes | Theoretical Biology Journal Club</p>
+    </div>
+  </footer>
+
+  <script>
+    function togglePanel() {
+      const panel = document.querySelector('.right-panel');
+      panel.classList.toggle('collapsed');
+      adjustLeftPanel();
+      updateToggleIcon();
+    }
+
+    function updateToggleIcon() {
+      const toggleBtn = document.querySelector('.toggle-panel');
+      const icon = toggleBtn.querySelector('.icon');
+      const panelCollapsed = document.querySelector('.right-panel').classList.contains('collapsed');
+
+      toggleBtn.classList.toggle('open', !panelCollapsed);
+      toggleBtn.classList.toggle('closed', panelCollapsed);
+      icon.textContent = panelCollapsed ? '⇄' : '×';
+    }
+
+    function openTab(event, tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    function handleResize() {
+      const rightPanel = document.querySelector('.right-panel');
+      if (window.innerWidth <= 768) {
+        rightPanel.classList.add('collapsed');
+      } else {
+        rightPanel.classList.remove('collapsed');
+      }
+      adjustLeftPanel();
+      updateToggleIcon();
+    }
+
+    function adjustLeftPanel() {
+      const leftPanel = document.querySelector('.left-panel');
+      const rightPanel = document.querySelector('.right-panel');
+
+      if (rightPanel.classList.contains('collapsed')) {
+        leftPanel.classList.add('full-width');
+      } else {
+        leftPanel.classList.remove('full-width');
+      }
+    }
+
+    // Enhanced smooth transitions
+    function initializeAnimations() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      });
+
+      document.querySelectorAll('.download-link, .tab-content').forEach((el) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+      });
+    }
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('load', () => {
+      handleResize();
+      adjustLeftPanel();
+      updateToggleIcon();
+      initializeAnimations();
+    });
+  </script>
+</body>
+</html>
