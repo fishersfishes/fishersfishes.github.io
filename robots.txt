@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://fishersfishes.github.io/sitemap.xml
+
+# Crawl delay (optional - adjust as needed)
+Crawl-delay: 1
+
+# Allow common search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Disallow assets that don't need indexing (optional)
+Disallow: /js/
+Disallow: /assets/*.jpg
+Disallow: /assets/*.png
+Disallow: /assets/*.gif
