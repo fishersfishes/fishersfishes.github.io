@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applications of Game Theory</title>
+    <style>
+        :root {
+            --primary: #ffffff;
+            --christine: #ec670a;
+            --rustic-red: #481204;
+            --sun: #f9a10c;
+            --milano-red: #c92207;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--rustic-red);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--rustic-red) 0%, #5c1a0a 100%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            animation: fadeInDown 1s ease;
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            margin-top: 1rem;
+            font-weight: normal;
+            opacity: 0.9;
+            animation: fadeIn 1.5s ease;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeIn 1s ease;
+        }
+        
+        .talks-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+            padding: 0 1rem;
+        }
+        
+        .talk-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.6s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .talk-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 14px 28px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.08);
+            border-bottom: 3px solid var(--christine);
+        }
+        
+        .talk-content {
+            padding: 1.8rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .talk-text-content {
+            flex-grow: 1;
+        }
+        
+        .talk-title {
+            margin-top: 0;
+            color: var(--rustic-red);
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .talk-speaker {
+            color: var(--milano-red);
+            font-weight: bold;
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+        
+        .talk-date {
+            display: inline-block;
+            background-color: var(--sun);
+            color: #333;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .talk-time {
+            display: block;
+            color: #666;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+        
+        .talk-short-desc {
+            font-weight: bold;
+            margin-bottom: 1.2rem;
+            color: var(--rustic-red);
+        }
+        
+        .abstract-link {
+            background-color: var(--christine);
+            color: white;
+        }
+        
+        .abstract-link:hover {
+            background-color: #d45d09;
+            transform: translateY(-2px);
+        }
+        
+        .disabled-link {
+            background-color: #cccccc;
+            color: #666666;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        
+        footer {
+            background-color: var(--rustic-red);
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 5rem;
+        }
+        
+        .section-title {
+            color: var(--rustic-red);
+            margin: 3rem 1rem 2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 3px solid var(--christine);
+            font-size: 2rem;
+            text-align: center;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .talk-card:nth-child(1) { animation-delay: 0.1s; }
+        .talk-card:nth-child(2) { animation-delay: 0.3s; }
+        .talk-card:nth-child(3) { animation-delay: 0.5s; }
+        
+        @media (max-width: 768px) {
+            .talks-container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .talk-link {
+                min-width: 140px;
+            }
+        }
+
+        .back-home-wrapper {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .back-home-link {
+            display: inline-block;
+            color: white;
+            background-color: var(--christine);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-home-link:hover {
+            background-color: white;
+            color: var(--christine);
+            transform: translateY(-2px);
+        }
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Applications of Game Theory</h1>
+            <p class="subtitle">A Series of Talks on Game Theory</p>
+        </div>
+        <div class="back-home-wrapper">
+            <a href="/" class="back-home-link">← Back to Home</a>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="intro">
+            <p>A small talk series on the applications of Game Theory in understanding biological systems.</p>
+        </div>
+        
+        <h2 class="section-title">Talk Series</h2>
+        <div class="talks-container">
+
+            
+            <div class="talk-card">
+            <!-- <div class="talk-card" data-link="assets/Network/gaurav.html"></div> -->
+                <div class="talk-content">
+                    <div class="talk-text-content">
+                        <h3 class="talk-title">Enabling Imitation Based Cooperation in Dynamic Social Networks</h3>
+                        <p class="talk-speaker">Jacques Bara</p>
+                        <span class="talk-date">15th Oct 2025</span>
+                        <span class="talk-time">7:30 PM IST</span>
+                        <p>
+                           How to use evolutionary game theory to understand cooperation in dynamic social networks.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="talk-card">
+            <!-- <div class="talk-card" data-link="assets/Network/gaurav.html"></div> -->
+                <div class="talk-content">
+                    <div class="talk-text-content">
+                        <h3 class="talk-title"> Reciprocity and punishment in the evolution of cooperation</h3>
+                        <p class="talk-speaker">Gaurav Athreya</p>
+                        <span class="talk-date">30th Oct 2025</span>
+                        <span class="talk-time">9:30 PM IST</span>
+                        <p>
+                          Exploring the mechanisms that apply when interactions are between unrelated individuals: reciprocity and punishment.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+    </div>
+    
+</main>
+
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Fisher's Fishes | Theoretical Biology Journal Club</p>
+        </div>
+    </footer>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.talk-card').forEach(card => {
+        const link = card.getAttribute('data-link');
+        if (link && link !== '#') {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', () => {
+            window.location.href = link;
+            });
+        } else {
+            card.style.opacity = 0.7;
+            card.title = "Abstract Coming Soon";
+        }
+        });
+    });
+    </script>
+
+</body>
+</html>

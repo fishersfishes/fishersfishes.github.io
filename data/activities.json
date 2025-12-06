@@ -10,11 +10,11 @@
     "title": "Special Lectures",
     "short_description": "Some interesting lectures on some interesting topics.",
     "description": "This is a series of special lectures on various topics.",
-    "image": "activities/images/Filler.jpg",
+    "image": "activities/images/Lecture.png",
     "link": "activities/SpecialLectures.html"
   },
   {
-    "title": "Talk series: Evolution in finite populations",
+    "title": "Evolution in finite populations",
     "short_description": "A series of talks on evolutionary dynamics.",
     "description": "We will be conducting a series of talks in the coming weeks, centred around the theme “Evolution in Finite Populations” (and we plan to hold more such thematic series in the future)",
     "image": "activities/images/pop.png",
@@ -26,6 +26,13 @@
     "description": "We will be conducting a series of talks and informal paper presentations, where you can present some concepts, your works, or any articles that you found interesting.",
     "link": "activities/JournalTalks.html",
     "image": "activities/images/talk.png"
+  },
+  {
+    "title": "Applications of Game Theory",
+    "short_description": "A series of talks on game theory",
+    "description": "This is a series of talks on various applications of game theory for modeling real-world phenomena.",
+    "link": "activities/GameTheory.html",
+    "image": "activities/images/gt.png"
   }
 ]
 
