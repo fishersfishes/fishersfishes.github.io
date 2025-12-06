@@ -62,7 +62,7 @@ function createArticleCards(articles, containerId) {
 
   // Display message when no articles are available
   if (!articles || articles.length === 0) {
-    container.innerHTML = '<div class="no-articles-message">No articles available at the moment. Check back soon for new content!</div>';
+    container.innerHTML = '<div class="no-articles-message">Editing in progress, check back soon for new content!</div>';
     return;
   }
 
