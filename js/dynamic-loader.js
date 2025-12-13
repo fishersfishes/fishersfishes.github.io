@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadCards('data/activities.json', 'activities-container');
   loadCards('data/resources.json', 'resources-container');
   loadArticles('data/articles.json', 'articles-container');
+  loadUpcoming('data/upcoming.json', 'upcoming-container');
 });
 
 function loadCards(jsonPath, containerId) {
@@ -101,6 +102,75 @@ function createArticleCards(articles, containerId) {
       ${metaLine}
       <p>${article.short_description || ''}</p>
     `;
+    container.appendChild(card);
+  });
+}
+
+function loadUpcoming(jsonPath, containerId) {
+  fetch(jsonPath)
+    .then(res => res.json())
+    .then(data => renderUpcoming(data, containerId))
+    .catch(err => {
+      console.error(`Error loading ${jsonPath}:`, err);
+      const el = document.getElementById(containerId);
+      if (el) el.innerHTML = '<div class="simple-card"><p>Error loading upcoming events.</p></div>';
+    });
+}
+
+function renderUpcoming(events, containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = '';
+
+  if (!events || events.length === 0) {
+    container.innerHTML = '<div class="no-articles-message">No upcoming events right now. Check back soon!</div>';
+    return;
+  }
+
+  events.forEach((ev) => {
+    const card = document.createElement('div');
+    card.className = 'event-card';
+
+    const header = document.createElement('div');
+    header.className = 'event-header';
+    const dateStr = ev.date ? new Date(ev.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+    const dateTag = dateStr ? `<span class="event-date">${dateStr}</span>` : '';
+    const timeTag = ev.time ? `<span class="event-time">${ev.time}</span>` : '';
+    header.innerHTML = `<h3>${ev.title}</h3>`
+      + (ev.speaker ? `<p class="speaker">by <strong>${ev.speaker}</strong></p>` : '')
+      + `<div class="event-meta">${dateTag} ${timeTag}</div>`;
+
+    const content = document.createElement('div');
+    content.className = 'event-content';
+
+    const aside = document.createElement('aside');
+    aside.className = 'event-portrait-wrap';
+    if (ev.portrait) {
+      const img = document.createElement('img');
+      img.className = 'event-portrait';
+      img.src = ev.portrait;
+      img.alt = ev.speaker ? `Portrait of ${ev.speaker}` : 'Speaker portrait';
+      aside.appendChild(img);
+    }
+
+    const body = document.createElement('div');
+    body.className = 'event-body';
+    const desc = document.createElement('p');
+    desc.textContent = ev.description || '';
+    body.appendChild(desc);
+
+    if (ev.link) {
+      const linkWrap = document.createElement('div');
+      linkWrap.className = 'event-link';
+      linkWrap.innerHTML = `<a href="${ev.link}" target="_blank" rel="noopener" aria-label="Join Zoom">Join on Zoom</a>`;
+      body.appendChild(linkWrap);
+    }
+
+    content.appendChild(aside);
+    content.appendChild(body);
+
+    card.appendChild(header);
+    card.appendChild(content);
     container.appendChild(card);
   });
 }
