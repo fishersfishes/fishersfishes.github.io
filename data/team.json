@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Vaibhav Anand",
+    "image": "assets/vaibhav.jpg",
+    "description": "Curious about many kinds of theoretical models. Right now I study the tumor microenvironment from an ecological perspective and investigate how gene regulatory networks shape cellular behavior.",
+    "email": "anand.vai@northeastern.edu"
+  },
+  {
+    "name": "Arhan Vora",
+    "image": "assets/arhan.jpg",
+    "description": "Interested in Evolutionary Rescue Theory, Antibiotic Resistance, Collective Behaviour, Stochastic Dynamics and Complex Systems.",
+    "email": "vora.arhan@gmail.com"
+  },
+  {
+    "name": "Abhishek Singh",
+    "image": "assets/abhishek.png",
+    "description": "Interested in Applications of Statistical Mechanics and Dynamical Systems for Complex systems",
+    "email": "abhishek.singh21@niser.ac.in"
+  },
+  {
+    "name": "Meyvizhi (2 mei/2 may)",
+    "image": "assets/meyvizhi.jpg",
+    "description": "Doodles chaotically between the lines of disease risk mapping and epidemiology. Hopefully causal inference and extreme value theory are the next victims by the end of her PhD.",
+    "email": "meyvizhi03@gmail.com"
+  },
+  {
+    "name": "Shithij T",
+    "image": "assets/shithij.jpeg",
+    "description": "Exploring genome stability and metabolic regulation with language models and neural differential equations",
+    "email": "shithij.t@niser.ac.in"
+  },
+  {
+    "name": "Milan Vijay",
+    "image": "assets/milan.jpg",
+    "description": "Interested in Cellular Heterogeneity, Antibiotic Resistance, Noise in Biological Systems, Nanobiology, Microbial Ecology.",
+    "email": "milanvijay@iisc.ac.in"
+  },
+  {
+    "name": "Riddhiman Biswas",
+    "image": "assets/riddhiman.jpg",
+    "description": "Molecular simulations, DNA/RNA biophysics, Stochastic gene regulation, Non-equilibrium dynamics",
+    "email": "riddhiman.biswas@students.iiserpune.ac.in"
+  },
+  {
+    "name": "Hiranmayi Ramamurthy",
+    "image": "assets/hiranmayi.jpg",
+    "description": "Interested in Networks, collective behavior and complex systems. Currently exploring both theoretical and experimental biology",
+    "email": "hiranmayi.ramamurthy@gmail.com"
+  },
+  {
+    "name": "Aditya Aryan",
+    "image": "assets/aditya.jpg",
+    "description": "Interested in Nonlinearity across scales, Neural networks, modelling evolutionary and ecological dynamics",
+    "email": "aditya22@iiserbpr.ac.in"
+  }
+]

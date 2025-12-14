@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadCards('data/resources.json', 'resources-container');
   loadArticles('data/articles.json', 'articles-container');
   loadUpcoming('data/upcoming.json', 'upcoming-container');
+  loadTeam('data/team.json', 'team-container');
 });
 
 function loadCards(jsonPath, containerId) {
@@ -172,5 +173,54 @@ function renderUpcoming(events, containerId) {
     card.appendChild(header);
     card.appendChild(content);
     container.appendChild(card);
+  });
+}
+
+function loadTeam(jsonPath, containerId) {
+  fetch(jsonPath)
+    .then(res => res.json())
+    .then(data => renderTeam(data, containerId))
+    .catch(err => {
+      console.error(`Error loading ${jsonPath}:`, err);
+      const el = document.getElementById(containerId);
+      if (el) el.innerHTML = '<div class="simple-card"><p>Error loading team members.</p></div>';
+    });
+}
+
+function renderTeam(members, containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = '';
+
+  if (!members || members.length === 0) {
+    container.innerHTML = '<div class="no-articles-message">No team members available.</div>';
+    return;
+  }
+
+  members.forEach((member) => {
+    const teamCard = document.createElement('div');
+    teamCard.className = 'Team';
+
+    const img = document.createElement('img');
+    img.src = member.image;
+    img.alt = `${member.name} - Fisher's Fishes Coordinator`;
+    img.className = 'team-portrait';
+
+    const name = document.createElement('h3');
+    name.textContent = member.name;
+
+    const description = document.createElement('p');
+    description.textContent = member.description;
+
+    const contactLink = document.createElement('a');
+    contactLink.href = `mailto:${member.email}`;
+    contactLink.textContent = 'Contact';
+
+    teamCard.appendChild(img);
+    teamCard.appendChild(name);
+    teamCard.appendChild(description);
+    teamCard.appendChild(contactLink);
+
+    container.appendChild(teamCard);
   });
 }

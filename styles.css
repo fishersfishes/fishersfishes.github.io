@@ -183,14 +183,13 @@ h2 {
   filter: saturate(1.1);
 }
 
-/* Add this to your existing styles.css */
 .simple-card h3 {
   margin: 1rem 1rem 0.5rem;
   color: #481204;
   font-size: 1.25rem;
   font-weight: 700;
   transition: color 0.4s ease, transform 0.4s ease;
-  display: inline-block; /* Needed for transform to work properly */
+  display: inline-block;
 }
 
 .simple-card:hover h3 {
@@ -286,7 +285,6 @@ h2 {
   animation-delay: calc(0.1s * var(--i));
 }
 
-/* No articles message styling */
 .no-articles-message {
   grid-column: 1 / -1;
   text-align: center;
@@ -547,9 +545,8 @@ html {
   box-shadow: 0 4px 16px rgba(255, 0, 0, 0.4);
 }
 
-/* Adjust header spacing */
 .header-content {
-  padding-bottom: 80px; /* Enough space for social links */
+  padding-bottom: 80px;
 }
 
 /* Mobile adjustments */
@@ -611,7 +608,6 @@ html {
   color: #ec670a;
 }
 
-/* Make sure the article cards look good at different screen sizes */
 @media (max-width: 1200px) {
   #articles-container {
     grid-template-columns: repeat(3, 1fr);
@@ -778,7 +774,6 @@ html {
   border-color: rgba(249, 161, 12, 0.3);
 }
 
-/* Team member portrait */
 .team-portrait {
   width: 120px;
   height: 120px;
@@ -839,7 +834,7 @@ html {
   line-height: 1.6;
   font-size: 0.95rem;
   transition: color 0.3s ease;
-  text-align: left;
+  text-align: center;
 }
 
 .Team:hover p {
@@ -901,7 +896,6 @@ html {
   transform: translateX(3px);
 }
 
-/* Interest tags */
 .interest-tags {
   display: flex;
   flex-wrap: wrap;
@@ -924,7 +918,6 @@ html {
   transform: translateY(-1px);
 }
 
-/* Floating particles for team section */
 .team-particle {
   position: absolute;
   width: 6px;
@@ -940,7 +933,6 @@ html {
   50% { transform: translateY(-20px) rotate(180deg); }
 }
 
-/* Mobile responsiveness */
 @media (max-width: 768px) {
   .coordinators-list {
     grid-template-columns: 1fr;
@@ -979,7 +971,6 @@ html {
   }
 }
 
-/* ===== UPCOMING EVENTS ===== */
 #upcoming {
   padding: 3rem 2rem;
   background: linear-gradient(135deg, #fffaf5 0%, #fff4ee 100%);
@@ -1126,4 +1117,3 @@ html {
     margin: 0 auto;
   }
 }
-
