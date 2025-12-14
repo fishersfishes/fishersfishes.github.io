@@ -1048,14 +1048,14 @@ html {
   display: grid;
   grid-template-columns: 300px 1fr;
   gap: 1.5rem;
-  align-items: stretch;
+  align-items: flex-start;
   padding: 0 1.5rem 1.5rem;
 }
 
 .event-portrait-wrap {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .event-portrait {
@@ -1081,6 +1081,20 @@ html {
 
 .event-body p {
   margin: 0 0 0.9rem 0;
+}
+
+.event-note {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: fit-content;
+  color: #6a3a2f;
+  font-weight: 600;
+  background: rgba(249, 161, 12, 0.12);
+  border: 1px dashed rgba(249, 161, 12, 0.45);
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  margin: 1.5rem 0rem 0rem 1.5rem;
 }
 
 .event-link {

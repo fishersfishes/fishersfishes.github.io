@@ -132,6 +132,14 @@ function renderUpcoming(events, containerId) {
     const card = document.createElement('div');
     card.className = 'event-card';
 
+    // Note (Ig Nobel) above everything, including header
+    if (ev.note) {
+      const note = document.createElement('div');
+      note.className = 'event-note';
+      note.innerHTML = `<i class="fas fa-award"></i> ${ev.note}`;
+      card.appendChild(note);
+    }
+
     const header = document.createElement('div');
     header.className = 'event-header';
     const dateStr = ev.date ? new Date(ev.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
@@ -146,6 +154,7 @@ function renderUpcoming(events, containerId) {
 
     const aside = document.createElement('aside');
     aside.className = 'event-portrait-wrap';
+
     if (ev.portrait) {
       const img = document.createElement('img');
       img.className = 'event-portrait';
