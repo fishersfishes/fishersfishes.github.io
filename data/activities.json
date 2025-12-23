@@ -1,4 +1,11 @@
 [
+{
+    "title": "Applications of Game Theory",
+    "short_description": "A series of talks on game theory",
+    "description": "This is a series of talks on various applications of game theory for modeling real-world phenomena.",
+    "link": "activities/GameTheory.html",
+    "image": "activities/images/gt.png"
+  },
   {
     "title": "Applications of Network Science",
     "short_description": "A series of talks on network science.",
@@ -26,13 +33,6 @@
     "description": "We will be conducting a series of talks and informal paper presentations, where you can present some concepts, your works, or any articles that you found interesting.",
     "link": "activities/JournalTalks.html",
     "image": "activities/images/talk.png"
-  },
-  {
-    "title": "Applications of Game Theory",
-    "short_description": "A series of talks on game theory",
-    "description": "This is a series of talks on various applications of game theory for modeling real-world phenomena.",
-    "link": "activities/GameTheory.html",
-    "image": "activities/images/gt.png"
-  }
+  }  
 ]
 
