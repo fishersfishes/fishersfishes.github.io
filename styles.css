@@ -724,6 +724,9 @@ html {
   text-align: left;
   position: relative;
   z-index: 2;
+  padding: 0;
+  left: 0;
+  right: 0;
 }
 
 .Team {
@@ -987,6 +990,44 @@ html {
   
   .Team p {
     font-size: 0.9rem;
+  }
+}
+
+#latest {
+  padding: 3rem 2rem;
+  background: #481204;
+}
+
+.latest-hero {
+  max-width: 1200px;
+  margin: 0 auto 1.25rem;
+  padding: 0;
+  left: 0;
+  right: 0;
+}
+
+.latest-hero h2 {
+  font-size: 2.2rem;
+  color: #ffffff;
+}
+
+.latest-card {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+  left: 0;
+  right: 0;
+}
+
+#latest rssapp-imageboard {
+  display: block;
+  width: 100%;
+  min-height: 340px;
+}
+
+@media (max-width: 768px) {
+  #latest rssapp-imageboard {
+    min-height: 260px;
   }
 }
 

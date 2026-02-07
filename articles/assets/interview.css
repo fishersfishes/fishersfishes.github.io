@@ -1,0 +1,385 @@
+:root {
+    --primary-color: #8B4513;
+    --accent-color: #D2691E;
+    --light-bg: #FFF8F0;
+    --border-color: #E8D5C4;
+    --text-dark: #2d2d2d;
+    --text-light: #5a5a5a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Merriweather', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--text-dark);
+    background: linear-gradient(135deg, #FFF8F0 0%, #F5E6D3 100%);
+    padding: 40px 20px;
+}
+
+.container {
+    max-width: 1500px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #6B3410 100%);
+    color: white;
+    padding: 60px 40px 40px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+}
+
+.header-text {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+h1 {
+    font-family: 'Lato', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+}
+
+.date {
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    font-style: italic;
+    opacity: 0.9;
+    color:#FFFFFF;
+}
+
+.header-interviewee {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.featuring-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 16px;
+}
+
+.header-interviewee img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid rgba(255,255,255,0.9);
+    margin-bottom: 12px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.header-interviewee img:hover {
+    transform: scale(1.05);
+    border-color: white;
+}
+
+.header-interviewee-name {
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.3;
+    margin-bottom: 6px;
+}
+
+.header-interviewee-title {
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.4;
+}
+
+.main-content {
+    display: flex;
+    gap: 40px;
+}
+
+.sidebar {
+    flex-shrink: 0;
+    width: 200px;
+    padding: 40px 0 40px 40px;
+    border-right: 2px solid var(--border-color);
+}
+
+.interviewers-section {
+    position: sticky;
+    top: 40px;
+}
+
+.section-group {
+    margin-bottom: 40px;
+}
+
+.section-group:last-child {
+    margin-bottom: 0;
+}
+
+.interviewers-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+.interviewee-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.interviewer {
+    margin-bottom: 28px;
+}
+
+.interviewer img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--border-color);
+    margin-bottom: 10px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.interviewer img:hover {
+    transform: scale(1.05);
+    border-color: var(--accent-color);
+}
+
+.interviewer-name {
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dark);
+    line-height: 1.3;
+}
+
+.content {
+    flex: 1;
+    padding: 40px 40px 60px 0;
+}
+
+.quote-block {
+    background: var(--light-bg);
+    border-left: 4px solid var(--accent-color);
+    padding: 24px 28px;
+    margin: 32px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 17px;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--text-light);
+}
+
+.quote-attribution {
+    font-style: italic;
+    text-align: right;
+    margin-top: 12px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+h2 {
+    font-family: 'Lato', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 56px 0 24px 0;
+    color: var(--primary-color);
+    letter-spacing: -0.02em;
+    position: relative;
+    padding-bottom: 12px;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--accent-color);
+}
+
+h3 {
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin: 36px 0 16px 0;
+    color: var(--text-dark);
+    font-style: italic;
+}
+
+p {
+    margin-bottom: 24px;
+    color: var(--text-dark);
+}
+
+.intro {
+    font-size: 20px;
+    line-height: 1.7;
+    margin-bottom: 28px;
+    color: var(--text-light);
+}
+
+.closing {
+    background: var(--light-bg);
+    padding: 32px;
+    margin-top: 56px;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+    font-style: italic;
+}
+
+@media (max-width: 900px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .header-text {
+        order: 1;
+    }
+
+    .header-interviewee {
+        order: 2;
+        margin-top: 30px;
+    }
+
+    .main-content {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 2px solid var(--border-color);
+        padding: 30px 40px;
+    }
+
+    .interviewers-section {
+        position: static;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .section-group {
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    .interviewer {
+        margin-bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .content {
+        padding: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 20px 10px;
+    }
+
+    .header {
+        padding: 40px 30px 30px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .header-interviewee img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .header-interviewee-name {
+        font-size: 16px;
+    }
+
+    .header-interviewee-title {
+        font-size: 12px;
+    }
+
+    h2 {
+        font-size: 26px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    body {
+        font-size: 17px;
+    }
+
+    .intro {
+        font-size: 18px;
+    }
+
+    .sidebar {
+        padding: 20px 30px;
+    }
+
+    .content {
+        padding: 30px;
+    }
+
+    .interviewers-section {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}

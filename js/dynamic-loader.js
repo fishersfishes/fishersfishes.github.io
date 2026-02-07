@@ -92,7 +92,13 @@ function createArticleCards(articles, containerId) {
 
     if (article.file) {
       card.addEventListener('click', () => {
-        window.location.href = `article.html?file=${article.file}`;
+        // If the file is an HTML page, navigate directly to it.
+        if (/\.html?$/.test(article.file)) {
+          window.location.href = article.file;
+        } else {
+          // Otherwise open the article viewer with the file param
+          window.location.href = `article.html?file=${article.file}`;
+        }
       });
       card.style.cursor = 'pointer';
     }
