@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Team - Fisher's Fishes</title>
+  
+  <!-- Modern Typography Imports -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" />
+  <link rel="icon" type="image/png" sizes="32x32" href="Logo.png" />
+  
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* Global Typography Updates */
+    body {
+      font-family: 'Spectral', Georgia, serif;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      background: #fafafa;
+    }
+    h1, h2, h3, nav, .social-links, .team-subtitle {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    
+    /* Override global hidden state so content shows immediately */
+    main {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    /* Styles for the designer acknowledgment */
+    .designer-ack {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 2rem auto;
+      color: #555;
+      font-style: italic;
+      position: relative;
+      z-index: 2;
+    }
+    .designer-ack a {
+      color: #ec670a;
+      text-decoration: none;
+      font-weight: 600;
+      border-bottom: 1px dashed #ec670a;
+      transition: all 0.2s ease;
+    }
+    .designer-ack a:hover {
+      color: #c92207;
+      border-bottom-style: solid;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Standardized Upper Half -->
+  <header style="height: auto; min-height: 450px; padding: 2rem 1rem 7rem 1rem; position: relative;">
+    <div id="boids-container"></div>
+    <div class="header-content">
+      <img src="Logo.png" alt="Fisher's Fishes Logo" style="width: 100px; height: auto;" />
+      <h1 style="margin-top: 1rem;">Fisher's Fishes</h1>
+      
+      <nav>
+        <a href="index_rough.html">Home</a>
+        <a href="activities.html">Activities</a>
+        <a href="resources.html">Resources</a>
+        <a href="articles.html">Articles</a>
+        <a href="team.html" style="color: #f9a10c;">Team</a>
+      </nav>
+    </div>
+    
+    <!-- Social Links using original FontAwesome classes for YouTube and Bluesky -->
+    <div class="social-links" style="position: absolute; bottom: 5rem; width: 100%; display: flex; justify-content: center; gap: 1.5rem;">
+      <a href="https://www.youtube.com/@FishersFishes" class="youtube" target="_blank" aria-label="Visit our YouTube channel">
+        <i class="fab fa-youtube"></i>
+      </a>
+      <a href="https://bsky.app/profile/fishersfishes.bsky.social" class="bluesky" target="_blank" aria-label="Follow us on Bluesky">
+        <i class="fa-brands fa-bluesky"></i>
+      </a>
+      <a href="https://groups.google.com/u/0/g/fishers-fishes-seminars" class="google-groups" style="background: rgba(249, 161, 12, 0.7);" target="_blank" aria-label="Join our Google Group">
+        <img src="icons/Google_Groups_icon.png" alt="Google Groups" style="width: 22px; height: 22px; object-fit: contain; filter: brightness(0) invert(1);" />
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section id="team">
+      
+      <!-- Background particles mapped from your CSS -->
+      <div class="team-particle" style="top: 10%; left: 10%; animation-delay: 0s;"></div>
+      <div class="team-particle" style="top: 20%; right: 15%; animation-delay: 1s;"></div>
+      <div class="team-particle" style="bottom: 30%; left: 20%; animation-delay: 2s;"></div>
+      <div class="team-particle" style="bottom: 10%; right: 10%; animation-delay: 3s;"></div>
+      <div class="team-particle" style="top: 60%; left: 5%; animation-delay: 4s;"></div>
+      <div class="team-particle" style="top: 40%; right: 5%; animation-delay: 5s;"></div>
+
+      <!-- Core Team Section -->
+      <h2>Core Team</h2>
+      <p class="team-subtitle">Meet the team behind Fisher's Fishes</p>
+      
+      <div class="coordinators-list">
+        
+        <div class="Team" style="animation-delay: 0.1s;">
+          <img class="team-portrait" src="assets/vaibhav.jpg" alt="Vaibhav Anand" onerror="this.src='Logo.png'">
+          <h3>Vaibhav Anand</h3>
+          <p>Curious about many kinds of theoretical models. Right now I study the tumor microenvironment from an ecological perspective and investigate how gene regulatory networks shape cellular behavior.</p>
+          <a href="mailto:anand.vai@northeastern.edu">Email</a>
+        </div>
+
+        <div class="Team" style="animation-delay: 0.2s;">
+          <img class="team-portrait" src="assets/arhan.jpg" alt="Arhan Vora" onerror="this.src='Logo.png'">
+          <h3>Arhan Vora</h3>
+          <p>Interested in Evolutionary Rescue Theory, Antibiotic Resistance, Collective Behaviour, Stochastic Dynamics and Complex Systems.</p>
+          <a href="mailto:vora.arhan@gmail.com">Email</a>
+        </div>
+
+        <div class="Team" style="animation-delay: 0.3s;">
+          <img class="team-portrait" src="assets/milan.jpg" alt="Milan Vijay" onerror="this.src='Logo.png'">
+          <h3>Milan Vijay</h3>
+          <p>Interested in Cellular Heterogeneity, Antibiotic Resistance, Noise in Biological Systems, Nanobiology, Microbial Ecology.</p>
+          <a href="mailto:milanvijay@iisc.ac.in">Email</a>
+        </div>
+
+        <div class="Team" style="animation-delay: 0.7s;">
+          <img class="team-portrait" src="assets/shithij.jpeg" alt="Shithij T" onerror="this.src='Logo.png'">
+          <h3>Shithij T</h3>
+          <p>Exploring genome stability and metabolic regulation with language models and neural differential equations</p>
+          <a href="mailto:shithij.t@niser.ac.in">Email</a>
+        </div>
+
+        <div class="Team" style="animation-delay: 0.4s;">
+          <img class="team-portrait" src="assets/abhishek.png" alt="Abhishek Singh" onerror="this.src='Logo.png'">
+          <h3>Abhishek Singh</h3>
+          <p>Interested in Applications of Statistical Mechanics and Dynamical Systems for Complex systems</p>
+          <a href="mailto:abhishek.singh21@niser.ac.in">Email</a>
+        </div>
+
+        <div class="Team" style="animation-delay: 0.5s;">
+          <img class="team-portrait" src="assets/riddhiman.jpg" alt="Riddhiman Biswas" onerror="this.src='Logo.png'">
+          <h3>Riddhiman Biswas</h3>
+          <p>Molecular simulations, DNA/RNA biophysics, Stochastic gene regulation, Non-equilibrium dynamics</p>
+          <a href="mailto:riddhiman.biswas@students.iiserpune.ac.in">Email</a>
+        </div>
+
+        <div class="Team" style="animation-delay: 0.6s;">
+          <img class="team-portrait" src="assets/hiranmayi.jpg" alt="Hiranmayi Ramamurthy" onerror="this.src='Logo.png'">
+          <h3>Hiranmayi Ramamurthy</h3>
+          <p>Interested in Networks, collective behavior and complex systems. Currently exploring both theoretical and experimental biology</p>
+          <a href="mailto:hiranmayi.ramamurthy@gmail.com">Email</a>
+        </div>
+
+      </div>
+
+      <!-- Designers Section -->
+      <h2 style="margin-top: 5rem;">Designers</h2>
+      <p class="designer-ack">A special thanks to Meyvizhi for designing our official Fisher's Fishes logo.</p>
+      
+      <!-- Centering the single designer card -->
+      <div class="coordinators-list" style="max-width: 400px; margin: 0 auto;">
+        
+        <div class="Team" style="animation-delay: 0.8s;">
+          <img class="team-portrait" src="assets/meyvizhi.jpg" alt="Meyvizhi" onerror="this.src='Logo.png'">
+          <h3>Meyvizhi (2 mei/2 may)</h3>
+          <p>Doodles chaotically between the lines of disease risk mapping and epidemiology. Hopefully causal inference and extreme value theory are the next victims by the end of her PhD.</p>
+          <a href="mailto:meyvizhi03@gmail.com">Email</a>
+        </div>
+
+      </div>
+
+    </section>
+  </main>
+
+  <footer style="margin-top: 0;">
+    <p>&copy; 2026 Fisher's Fishes | Theoretical Biology Club</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/boids.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fisher's Fishes - Theoretical Biology Journal Club & Support Group</title>
+  
+  <!-- Modern Typography Imports -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome for the YouTube and Bluesky icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" />
+  
+  <link rel="icon" type="image/png" href="Logo.png" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Layout & Typography Overrides for the Home Page -->
+  <style>
+    /* Global Typography Updates */
+    body {
+      font-family: 'Spectral', Georgia, serif;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      background: #fafafa;
+    }
+    h1, h2, h3, nav, .social-links, .bsky-vertical-card a {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    
+    /* Override global hidden state so headings show immediately */
+    main {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    /* Custom fade-in for the text and feed to preserve the animation */
+    .animated-content {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: customFadeIn 1s ease forwards;
+      animation-delay: 0.2s; 
+    }
+
+    @keyframes customFadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Side-by-Side Split Layout */
+    .home-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      max-width: 1200px;
+      margin: 4rem auto 4rem auto; 
+      padding: 0 2rem;
+      align-items: start; /* Allows columns to have independent heights */
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Force perfect alignment for both headings */
+    .about-col h2, .news-col h2 {
+      font-size: 2.2rem;
+      color: #c92207;
+      margin-top: 0; 
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+      text-align: center; 
+    }
+
+    /* Justified text to adapt spacing like Word and eliminate jagged edges */
+    .about-col p {
+      color: #333;
+      text-align: justify;
+      text-justify: inter-word;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Custom style for the inline links in the About section */
+    .about-link {
+      color: #ec670a;
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px dashed #ec670a;
+      transition: all 0.2s ease;
+    }
+    .about-link:hover {
+      color: #c92207;
+      border-bottom-style: solid;
+    }
+
+    /* The frosted glass box */
+    .news-glass-box {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 12px 40px rgba(72, 18, 4, 0.08);
+      display: flex; 
+      gap: 1.5rem;
+      align-items: center; /* Vertically centers the buttons next to the feed */
+    }
+
+    /* Height expanded to ensure 3 posts fit without being artificially cut off */
+    .bsky-feed-window {
+      height: 750px; 
+      flex-grow: 1; 
+      overflow-y: auto;
+      scroll-behavior: smooth;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      padding-right: 5px;
+      scrollbar-width: none; 
+      -ms-overflow-style: none;
+    }
+    .bsky-feed-window::-webkit-scrollbar { display: none; }
+
+    .bsky-vertical-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(72, 18, 4, 0.05);
+      border-left: 4px solid #f9a10c;
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+    .bsky-vertical-card:hover {
+      transform: translateX(5px);
+    }
+    .bsky-date {
+      color: #c92207;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Vertical Navigation Buttons on the Right */
+    .vertical-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      flex-shrink: 0;
+      justify-content: center;
+    }
+    .scroll-btn {
+      background: #481204;
+      color: white;
+      border: none;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 10px rgba(72, 18, 4, 0.2);
+    }
+    .scroll-btn:hover { background: #c92207; transform: scale(1.1); }
+
+    /* Specific fix to ensure Google Groups icon matches the FontAwesome ones */
+    .social-links .google-groups img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 900px) {
+      .home-split {
+        grid-template-columns: 1fr;
+        margin-top: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header style="height: auto; min-height: 450px; padding: 2rem 1rem 7rem 1rem; position: relative;">
+    <div id="boids-container"></div>
+    <div class="header-content">
+      <img src="Logo.png" alt="Fisher's Fishes Logo" style="width: 100px; height: auto;" />
+      <h1 style="margin-top: 1rem;">Fisher's Fishes</h1>
+      
+      <nav>
+        <a href="index_rough.html" style="color: #f9a10c;">Home</a>
+        <a href="activities.html">Activities</a>
+        <a href="resources.html">Resources</a>
+        <a href="articles.html">Articles</a>
+        <a href="team.html">Team</a>
+      </nav>
+    </div>
+    
+    <!-- Social Links using FontAwesome classes for YouTube and Bluesky -->
+    <div class="social-links" style="position: absolute; bottom: 5rem; width: 100%; display: flex; justify-content: center; gap: 1.5rem;">
+      <a href="https://www.youtube.com/@FishersFishes" class="youtube" target="_blank" aria-label="Visit our YouTube channel">
+        <i class="fab fa-youtube"></i>
+      </a>
+      <a href="https://bsky.app/profile/fishersfishes.bsky.social" class="bluesky" target="_blank" aria-label="Follow us on Bluesky">
+        <i class="fa-brands fa-bluesky"></i>
+      </a>
+      <!-- Using the local Google Groups icon -->
+      <a href="https://groups.google.com/u/0/g/fishers-fishes-seminars" class="google-groups" style="background: rgba(249, 161, 12, 0.7);" target="_blank" aria-label="Join our Google Group">
+        <img src="icons/Google_Groups_icon.png" alt="Google Groups" />
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="home-split">
+      
+      <!-- Left Half: About -->
+      <div class="about-col">
+        <h2>About Us</h2>
+        <div class="animated-content">
+          <p>Welcome to Fisher's Fishes, a global, virtual, student-led community of budding quantitative biologists.</p>
+          
+          <p>In the absence of a formal curriculum and guidance on how to start in this interdisciplinary field, we help each other learn by hosting a curated mix of talks by faculty and peers. We simultaneously function as a platform where people can present things that spark their curiosity, whether that's a paper they wrote, their master’s thesis project, or just a paper they're interested in and want to dig into with others.</p>
+          
+          <p>Our primarily online format lets us put a diverse set of people in the same (zoom) room without significant resources. Over about two and a half years we've held around 30 talks on a wide range of topics, from ecology and evolution to biophysics, mathematical oncology, and even the history of science.</p>
+          
+          <p>We are passionate about expanding access to quantitative biology in the Global South, where the support for this exciting, interdisciplinary field is thinnest. A lot of people never find out that quantitative biology is a path open to them at all, and that lack of awareness is something we can take on directly. Anyone who wants to foster a community like this in their own university or region is welcome to join us, and as more and more people connect we shall form a network offering many invaluable perspectives.</p>
+
+          <p>Fisher's Fishes began as a small theoretical biology journal club at IISER Pune. As students and colleagues from other places joined, it grew into a virtual society that now connects members across institutes around the world. We bring together people working in eco evolutionary dynamics, biophysics, systems and synthetic biology, population genetics, neuroscience, mathematical oncology, and many emerging fields that use theory to understand complex biological phenomena. Our community includes undergraduates, graduate students, and postdoctoral scholars, and many of our events are led by students who present papers they find interesting or talk about their own work.</p>
+
+          <p style="text-align: center;">If this initiative excites you, please reach out to us! You can email us at <a href="mailto:fishesfishers@gmail.com" class="about-link">fishesfishers@gmail.com</a> or join <a href="https://groups.google.com/u/0/g/fishers-fishes-seminars" class="about-link" target="_blank">Google Groups</a>, <a href="https://www.youtube.com/@FishersFishes" class="about-link" target="_blank">YouTube</a>, and <a href="https://bsky.app/profile/fishersfishes.bsky.social" class="about-link" target="_blank">Bluesky</a>.</p>
+        </div>
+      </div>
+
+      <!-- Right Half: News Feed -->
+      <div class="news-col">
+        <h2>News</h2>
+        <div class="animated-content news-glass-box">
+          
+          <!-- The Scrollable Feed -->
+          <div id="bsky-feed-window" class="bsky-feed-window">
+            <p style="text-align: center; color: #666;">Loading latest updates...</p>
+          </div>
+
+          <!-- The Up/Down Buttons on the Right using inline SVG -->
+          <div class="vertical-controls">
+            <button id="scrollUp" class="scroll-btn" aria-label="Scroll Up">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+            </button>
+            <button id="scrollDown" class="scroll-btn" aria-label="Scroll Down">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          
+        </div>
+      </div>
+
+    </section>
+  </main>
+  
+  <footer>
+    <p>&copy; 2026 Fisher's Fishes | Theoretical Biology Club</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/boids.js"></script>
+  <script src="js/scroll.js"></script>
+  
+  <!-- Vertical Bluesky Logic -->
+  <script>
+    async function loadBlueskyVertical() {
+      const handle = "fishersfishes.bsky.social";
+      const feedWindow = document.getElementById('bsky-feed-window');
+      
+      try {
+        // Fetch 30 posts first to guarantee we find 10 actual text posts after filtering
+        const response = await fetch(`https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=${handle}&limit=30&filter=posts_no_replies`);
+        if (!response.ok) throw new Error("Network error");
+        const data = await response.json();
+        
+        feedWindow.innerHTML = ''; 
+        
+        // Filter out posts without text and keep exactly the top 10
+        const validPosts = data.feed.filter(item => item.post.record.text).slice(0, 10);
+        
+        validPosts.forEach(({ post }) => {
+          const card = document.createElement('div');
+          card.className = 'bsky-vertical-card';
+          const date = new Date(post.record.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+          const postUrl = `https://bsky.app/profile/${handle}/post/${post.uri.split('/').pop()}`;
+          
+          card.innerHTML = `
+            <div class="bsky-date">${date}</div>
+            <p style="margin: 0.5rem 0; font-family: 'Inter', sans-serif; font-size: 0.95rem; text-align: left;">${post.record.text}</p>
+            <a href="${postUrl}" target="_blank" style="color: #ec670a; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">
+              <i class="fa-brands fa-bluesky"></i> View Post
+            </a>
+          `;
+          feedWindow.appendChild(card);
+        });
+
+        // Add the "Older Posts" button at the very bottom
+        const archiveDiv = document.createElement('div');
+        archiveDiv.style.textAlign = 'center';
+        archiveDiv.style.padding = '1rem 0';
+        archiveDiv.innerHTML = `<a href="https://bsky.app/profile/${handle}" target="_blank" style="background: #481204; color: white; padding: 0.75rem 1.5rem; border-radius: 25px; text-decoration: none; font-weight: bold; font-family: 'Plus Jakarta Sans', sans-serif; display: inline-block; transition: background 0.2s;">View all older posts on Bluesky &rarr;</a>`;
+        feedWindow.appendChild(archiveDiv);
+
+      } catch (error) {
+        feedWindow.innerHTML = `<p style="text-align: center;">Unable to load feed. <a href="https://bsky.app/profile/${handle}" target="_blank">View on Bluesky</a>.</p>`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadBlueskyVertical();
+      
+      // Arrow button scrolling logic tailored to scroll one card height at a time
+      const feedWindow = document.getElementById('bsky-feed-window');
+      const scrollAmount = 250; 
+      
+      document.getElementById('scrollDown').addEventListener('click', () => {
+        feedWindow.scrollBy({ top: scrollAmount, behavior: 'smooth' });
+      });
+      document.getElementById('scrollUp').addEventListener('click', () => {
+        feedWindow.scrollBy({ top: -scrollAmount, behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>

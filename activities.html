@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Activities - Fisher's Fishes</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" />
+  <link rel="icon" type="image/png" href="Logo.png" />
+  
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    body { font-family: 'Spectral', Georgia, serif; background: #fafafa; font-size: 1.15rem; line-height: 1.8; }
+    h1, h2, h3, nav, .social-links, .card-link { font-family: 'Plus Jakarta Sans', sans-serif; }
+    
+    main { opacity: 1 !important; transform: none !important; }
+
+    .page-section {
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+    }
+    
+    .page-section h2 {
+      font-size: 2.2rem;
+      color: #c92207;
+      text-align: center;
+      margin-bottom: 3rem;
+      letter-spacing: -0.02em;
+    }
+
+    /* Card Grid System */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .glass-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(72, 18, 4, 0.06);
+      border: 1px solid rgba(201, 34, 7, 0.1);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: customFadeIn 0.8s ease forwards;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(72, 18, 4, 0.12);
+      border-color: rgba(249, 161, 12, 0.4);
+    }
+
+    @keyframes customFadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-img-wrap {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      border-bottom: 3px solid #ec670a;
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .glass-card:hover .card-img-wrap img {
+      transform: scale(1.05);
+    }
+
+    .card-content {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-content h3 {
+      font-size: 1.4rem;
+      color: #481204;
+      margin: 0 0 0.75rem 0;
+    }
+
+    .card-content p {
+      color: #555;
+      margin: 0 0 1.5rem 0;
+      flex-grow: 1;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #f9a10c 0%, #ec670a 100%);
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      width: fit-content;
+      transition: all 0.2s ease;
+    }
+
+    .card-link:hover {
+      background: linear-gradient(135deg, #ec670a 0%, #c92207 100%);
+      transform: translateX(4px);
+    }
+  </style>
+</head>
+
+<body>
+  <header style="height: auto; min-height: 450px; padding: 2rem 1rem 7rem 1rem; position: relative;">
+    <div id="boids-container"></div>
+    <div class="header-content">
+      <img src="Logo.png" alt="Fisher's Fishes Logo" style="width: 100px; height: auto;" />
+      <h1 style="margin-top: 1rem;">Fisher's Fishes</h1>
+      
+      <nav>
+        <a href="index_rough.html">Home</a>
+        <a href="activities.html" style="color: #f9a10c;">Activities</a>
+        <a href="resources.html">Resources</a>
+        <a href="articles.html">Articles</a>
+        <a href="team.html">Team</a>
+      </nav>
+    </div>
+    
+    <div class="social-links" style="position: absolute; bottom: 5rem; width: 100%; display: flex; justify-content: center; gap: 1.5rem;">
+      <a href="https://www.youtube.com/@FishersFishes" class="youtube" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a href="https://bsky.app/profile/fishersfishes.bsky.social" class="bluesky" target="_blank"><i class="fa-brands fa-bluesky"></i></a>
+      <a href="https://groups.google.com/u/0/g/fishers-fishes-seminars" class="google-groups" style="background: rgba(249, 161, 12, 0.7);" target="_blank">
+        <img src="icons/Google_Groups_icon.png" alt="Google Groups" style="width: 22px; height: 22px; object-fit: contain; filter: brightness(0) invert(1);" />
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-section">
+      <h2>Talk Series & Activities</h2>
+      <div id="activities-container" class="card-grid">
+        <p style="text-align: center; width: 100%; grid-column: 1 / -1;">Loading activities...</p>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <p>&copy; 2026 Fisher's Fishes | Theoretical Biology Club</p>
+  </footer>
+
+  <script src="js/boids.js"></script>
+  <script>
+    async function loadActivities() {
+      const container = document.getElementById('activities-container');
+      try {
+        const response = await fetch('data/activities.json');
+        const data = await response.json();
+        container.innerHTML = '';
+        
+        data.forEach((activity, index) => {
+          const delay = (index * 0.1) + 's';
+          const card = document.createElement('div');
+          card.className = 'glass-card';
+          card.style.animationDelay = delay;
+          
+          card.innerHTML = `
+            <div class="card-img-wrap">
+              <img src="${activity.image}" alt="${activity.title}" onerror="this.src='Logo.png'">
+            </div>
+            <div class="card-content">
+              <h3>${activity.title}</h3>
+              <p>${activity.short_description}</p>
+              <a href="${activity.link}" class="card-link">View Details <i class="fas fa-arrow-right"></i></a>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      } catch (error) {
+        container.innerHTML = '<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Failed to load activities.</p>';
+      }
+    }
+    document.addEventListener('DOMContentLoaded', loadActivities);
+  </script>
+</body>
+</html>
