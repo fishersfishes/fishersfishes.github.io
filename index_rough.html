@@ -5,18 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fisher's Fishes - Theoretical Biology Journal Club & Support Group</title>
   
-  <!-- Modern Typography Imports -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-  
-  <!-- FontAwesome for the YouTube and Bluesky icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" />
-  
   <link rel="icon" type="image/png" href="Logo.png" />
+  
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- Layout & Typography Overrides for the Home Page -->
   <style>
     /* Global Typography Updates */
     body {
@@ -24,18 +20,19 @@
       font-size: 1.15rem;
       line-height: 1.8;
       background: #fafafa;
+      /* Prevents the entire page from breaking if an element is too wide */
+      overflow-x: hidden; 
+      max-width: 100vw;
     }
     h1, h2, h3, nav, .social-links, .bsky-vertical-card a {
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
     
-    /* Override global hidden state so headings show immediately */
     main {
       opacity: 1 !important;
       transform: none !important;
     }
 
-    /* Custom fade-in for the text and feed to preserve the animation */
     .animated-content {
       opacity: 0;
       transform: translateY(20px);
@@ -47,7 +44,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
     
-    /* Side-by-Side Split Layout */
     .home-split {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -55,12 +51,12 @@
       max-width: 1200px;
       margin: 4rem auto 4rem auto; 
       padding: 0 2rem;
-      align-items: start; /* Allows columns to have independent heights */
+      align-items: start;
       position: relative;
       z-index: 10;
+      box-sizing: border-box; /* Ensures padding doesn't widen the container */
     }
 
-    /* Force perfect alignment for both headings */
     .about-col h2, .news-col h2 {
       font-size: 2.2rem;
       color: #c92207;
@@ -70,7 +66,7 @@
       text-align: center; 
     }
 
-    /* Justified text to adapt spacing like Word and eliminate jagged edges */
+    /* Justified text for desktop */
     .about-col p {
       color: #333;
       text-align: justify;
@@ -78,7 +74,6 @@
       margin-bottom: 1.5rem;
     }
     
-    /* Custom style for the inline links in the About section */
     .about-link {
       color: #ec670a;
       font-weight: 600;
@@ -91,7 +86,6 @@
       border-bottom-style: solid;
     }
 
-    /* The frosted glass box */
     .news-glass-box {
       background: rgba(255, 255, 255, 0.7);
       backdrop-filter: blur(15px);
@@ -101,10 +95,9 @@
       box-shadow: 0 12px 40px rgba(72, 18, 4, 0.08);
       display: flex; 
       gap: 1.5rem;
-      align-items: center; /* Vertically centers the buttons next to the feed */
+      align-items: start; 
     }
 
-    /* Height expanded to ensure 3 posts fit without being artificially cut off */
     .bsky-feed-window {
       height: 750px; 
       flex-grow: 1; 
@@ -139,7 +132,6 @@
       letter-spacing: 0.05em;
     }
 
-    /* Vertical Navigation Buttons on the Right */
     .vertical-controls {
       display: flex;
       flex-direction: column;
@@ -163,7 +155,6 @@
     }
     .scroll-btn:hover { background: #c92207; transform: scale(1.1); }
 
-    /* Specific fix to ensure Google Groups icon matches the FontAwesome ones */
     .social-links .google-groups img {
       width: 22px;
       height: 22px;
@@ -171,12 +162,67 @@
       filter: brightness(0) invert(1);
     }
 
-    /* Mobile Responsiveness */
+    /* ============================================================== */
+    /* UPGRADED MOBILE RESPONSIVENESS */
+    /* ============================================================== */
     @media (max-width: 900px) {
       .home-split {
         grid-template-columns: 1fr;
         margin-top: 2rem;
+        gap: 3rem;
+        padding: 0 1.5rem; /* Keeps content away from screen edges */
       }
+      
+      .about-col p {
+        /* Turns off justified text on phones to stop awkward word spacing */
+        text-align: left; 
+      }
+
+      /* Stack the feed and the buttons vertically instead of side-by-side */
+      .news-glass-box {
+        flex-direction: column; 
+        padding: 1.5rem; 
+      }
+
+      /* Make the feed shorter so it doesn't trap the user's thumb */
+      .bsky-feed-window {
+        height: 450px; 
+        padding-right: 0; 
+      }
+
+      /* Move the arrow buttons underneath the feed, side-by-side */
+      .vertical-controls {
+        flex-direction: row; 
+        width: 100%;
+        margin-top: 0.5rem;
+      }
+
+      /* Adjust header to prevent horizontal scrolling */
+      header {
+        padding: 2rem 1rem 6rem 1rem !important;
+      }
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+    }
+
+    /* ============================================================== */
+    /* TAPERING FADE EFFECT                                  */
+    /* ============================================================== */
+    
+    header {
+      /* Keeps it solid brown all the way past the icons (88%), then fades cleanly to the off-white page background */
+      background: linear-gradient(to bottom, #481204 0%, #481204 93%, #fafafa 100%) !important;
+      box-shadow: none !important;
+    }
+
+    #boids-container {
+      /* Fades the boids out smoothly just before the background starts turning white */
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
     }
   </style>
 </head>
@@ -197,7 +243,6 @@
       </nav>
     </div>
     
-    <!-- Social Links using FontAwesome classes for YouTube and Bluesky -->
     <div class="social-links" style="position: absolute; bottom: 5rem; width: 100%; display: flex; justify-content: center; gap: 1.5rem;">
       <a href="https://www.youtube.com/@FishersFishes" class="youtube" target="_blank" aria-label="Visit our YouTube channel">
         <i class="fab fa-youtube"></i>
@@ -205,7 +250,6 @@
       <a href="https://bsky.app/profile/fishersfishes.bsky.social" class="bluesky" target="_blank" aria-label="Follow us on Bluesky">
         <i class="fa-brands fa-bluesky"></i>
       </a>
-      <!-- Using the local Google Groups icon -->
       <a href="https://groups.google.com/u/0/g/fishers-fishes-seminars" class="google-groups" style="background: rgba(249, 161, 12, 0.7);" target="_blank" aria-label="Join our Google Group">
         <img src="icons/Google_Groups_icon.png" alt="Google Groups" />
       </a>
@@ -215,7 +259,6 @@
   <main>
     <section class="home-split">
       
-      <!-- Left Half: About -->
       <div class="about-col">
         <h2>About Us</h2>
         <div class="animated-content">
@@ -233,17 +276,14 @@
         </div>
       </div>
 
-      <!-- Right Half: News Feed -->
       <div class="news-col">
         <h2>News</h2>
         <div class="animated-content news-glass-box">
           
-          <!-- The Scrollable Feed -->
           <div id="bsky-feed-window" class="bsky-feed-window">
             <p style="text-align: center; color: #666;">Loading latest updates...</p>
           </div>
 
-          <!-- The Up/Down Buttons on the Right using inline SVG -->
           <div class="vertical-controls">
             <button id="scrollUp" class="scroll-btn" aria-label="Scroll Up">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
@@ -263,25 +303,21 @@
     <p>&copy; 2026 Fisher's Fishes | Theoretical Biology Club</p>
   </footer>
 
-  <!-- Scripts -->
   <script src="js/boids.js"></script>
   <script src="js/scroll.js"></script>
   
-  <!-- Vertical Bluesky Logic -->
   <script>
     async function loadBlueskyVertical() {
       const handle = "fishersfishes.bsky.social";
       const feedWindow = document.getElementById('bsky-feed-window');
       
       try {
-        // Fetch 30 posts first to guarantee we find 10 actual text posts after filtering
         const response = await fetch(`https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=${handle}&limit=30&filter=posts_no_replies`);
         if (!response.ok) throw new Error("Network error");
         const data = await response.json();
         
         feedWindow.innerHTML = ''; 
         
-        // Filter out posts without text and keep exactly the top 10
         const validPosts = data.feed.filter(item => item.post.record.text).slice(0, 10);
         
         validPosts.forEach(({ post }) => {
@@ -300,7 +336,6 @@
           feedWindow.appendChild(card);
         });
 
-        // Add the "Older Posts" button at the very bottom
         const archiveDiv = document.createElement('div');
         archiveDiv.style.textAlign = 'center';
         archiveDiv.style.padding = '1rem 0';
@@ -315,7 +350,6 @@
     document.addEventListener('DOMContentLoaded', () => {
       loadBlueskyVertical();
       
-      // Arrow button scrolling logic tailored to scroll one card height at a time
       const feedWindow = document.getElementById('bsky-feed-window');
       const scrollAmount = 250; 
       

@@ -77,6 +77,22 @@
       gap: 5px;
     }
     .card-link:hover { color: #ec670a; }
+
+    /* ============================================================== */
+    /* TAPERING FADE EFFECT                                  */
+    /* ============================================================== */
+    
+    header {
+      /* Keeps it solid brown all the way past the icons (88%), then fades cleanly to the off-white page background */
+      background: linear-gradient(to bottom, #481204 0%, #481204 93%, #fafafa 100%) !important;
+      box-shadow: none !important;
+    }
+
+    #boids-container {
+      /* Fades the boids out smoothly just before the background starts turning white */
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
+    }
   </style>
 </head>
 
