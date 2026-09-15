@@ -166,19 +166,17 @@
     /* MOBILE RESPONSIVENESS                                          */
     /* ============================================================== */
 
-    /* Stack about + news columns on tablet and below */
     @media (max-width: 900px) {
       .home-split {
         grid-template-columns: 1fr;
-        grid-template-rows: auto auto;   /* explicit rows so stacking is unambiguous */
+        grid-template-rows: auto auto;  
         width: 100%;
-        min-width: 0;                    /* prevents grid blowout */
+        min-width: 0;                 
         margin-top: 2rem;
         gap: 3rem;
         padding: 0 1.5rem;
       }
 
-      /* Each column must not escape its grid cell */
       .about-col,
       .news-col {
         width: 100%;
@@ -186,30 +184,25 @@
       }
       
       .about-col p {
-        /* Turns off justified text on phones to stop awkward word spacing */
         text-align: left; 
       }
 
-      /* Stack the feed and the scroll buttons vertically instead of side-by-side */
       .news-glass-box {
         flex-direction: column; 
         padding: 1.5rem; 
       }
 
-      /* Make the feed shorter so it doesn't trap the user's thumb */
       .bsky-feed-window {
         height: 450px; 
         padding-right: 0; 
       }
 
-      /* Move the arrow buttons underneath the feed, side-by-side */
       .vertical-controls {
         flex-direction: row; 
         width: 100%;
         margin-top: 0.5rem;
       }
 
-      /* Adjust header to prevent horizontal scrolling */
       header {
         padding: 2rem 1rem 6rem 1rem !important;
       }
