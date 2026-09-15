@@ -163,14 +163,26 @@
     }
 
     /* ============================================================== */
-    /* UPGRADED MOBILE RESPONSIVENESS */
+    /* MOBILE RESPONSIVENESS                                          */
     /* ============================================================== */
+
+    /* Stack about + news columns on tablet and below */
     @media (max-width: 900px) {
       .home-split {
         grid-template-columns: 1fr;
+        grid-template-rows: auto auto;   /* explicit rows so stacking is unambiguous */
+        width: 100%;
+        min-width: 0;                    /* prevents grid blowout */
         margin-top: 2rem;
         gap: 3rem;
-        padding: 0 1.5rem; /* Keeps content away from screen edges */
+        padding: 0 1.5rem;
+      }
+
+      /* Each column must not escape its grid cell */
+      .about-col,
+      .news-col {
+        width: 100%;
+        min-width: 0;
       }
       
       .about-col p {
@@ -178,7 +190,7 @@
         text-align: left; 
       }
 
-      /* Stack the feed and the buttons vertically instead of side-by-side */
+      /* Stack the feed and the scroll buttons vertically instead of side-by-side */
       .news-glass-box {
         flex-direction: column; 
         padding: 1.5rem; 
