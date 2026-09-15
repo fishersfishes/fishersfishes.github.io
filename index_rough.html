@@ -95,13 +95,17 @@
       box-shadow: 0 12px 40px rgba(72, 18, 4, 0.08);
       display: flex; 
       gap: 1.5rem;
-      align-items: start; 
+      align-items: start;
+      min-width: 0;        /* stops the flex container itself from overflowing */
+      overflow-x: hidden;
     }
 
     .bsky-feed-window {
       height: 750px; 
-      flex-grow: 1; 
+      flex-grow: 1;
+      min-width: 0;        /* lets the flex child shrink below its content size */
       overflow-y: auto;
+      overflow-x: hidden;  /* clips any card that still tries to poke out */
       scroll-behavior: smooth;
       display: flex;
       flex-direction: column;
@@ -118,7 +122,10 @@
       border-radius: 12px;
       box-shadow: 0 4px 15px rgba(72, 18, 4, 0.05);
       border-left: 4px solid #f9a10c;
-      flex-shrink: 0;
+      flex-shrink: 1;      /* was 0 — now allowed to shrink with the container */
+      min-width: 0;        /* allows text inside to wrap instead of overflowing */
+      word-break: break-word; /* breaks long URLs/words that would cause overflow */
+      overflow-wrap: break-word;
       transition: transform 0.2s ease;
     }
     .bsky-vertical-card:hover {
