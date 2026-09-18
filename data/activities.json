@@ -3,8 +3,8 @@
     "title": "Applications of Game Theory",
     "short_description": "A series of talks on game theory",
     "description": "This is a series of talks on various applications of game theory for modeling real-world phenomena.",
-    "link": "activities/GameTheory.html",
-    "image": "activities/images/gt.png"
+    "image": "activities/images/gt.png",
+    "link": "activities/GameTheory.html"
   },
   {
     "title": "Applications of Network Science",
@@ -12,6 +12,13 @@
     "description": "We will be conducting a series of talks in the coming weeks, centred around the theme “Network Science”",
     "image": "activities/images/Network.png",
     "link": "activities/Network.html"
+  },
+  {
+    "title": "Trails and Collective Navigation",
+    "short_description": "A series of talks on collective navigation by ants.",
+    "description": "We will be conducting a series of talks in the coming weeks, centred around the theme “Trails and Collective Navigation” (and we plan to hold more such thematic series in the future)",
+    "image": "activities/images/filler.png",
+    "link": "activities/TrailsCollectiveNavigation.html"
   },
   {
     "title": "Special Lectures",
@@ -28,11 +35,25 @@
     "link": "activities/EvoFinitePop.html"
   },
   {
+    "title": "Ecological Dynamics",
+    "short_description": "A series of talks on ecological systems.",
+    "description": "We will be conducting a series of talks in the coming weeks, centred around the theme “Ecological Dynamics” (and we plan to hold more such thematic series in the future)",
+    "image": "activities/images/filler.png",
+    "link": "activities/EcologicalDynamics.html"
+  },
+  {
+    "title": "Understanding Evolution",
+    "short_description": "A series of talks on evolutionary biology.",
+    "description": "We will be conducting a series of talks in the coming weeks, centred around the theme “Understanding Evolution” (and we plan to hold more such thematic series in the future)",
+    "image": "activities/images/filler.png",
+    "link": "activities/UnderstandingEvolution.html"
+  },
+  {
     "title": "Journal Talk Series",
     "short_description": "A series of talks and informal paper presentations.",
     "description": "We will be conducting a series of talks and informal paper presentations, where you can present some concepts, your works, or any articles that you found interesting.",
-    "link": "activities/JournalTalks.html",
-    "image": "activities/images/talk.png"
+    "image": "activities/images/talk.png",
+    "link": "activities/JournalTalks.html"
   }  
 ]
 
